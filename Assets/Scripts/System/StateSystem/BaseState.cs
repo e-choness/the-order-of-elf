@@ -15,7 +15,7 @@ namespace System.StateSystem
 
         public abstract void EnterState();
         public abstract void ExitState();
-        public abstract void Update();
+        public abstract void UpdateState();
         public abstract TState GetNextState();
         public abstract void OnTriggerEnter(Collider other);
         public abstract void OnTriggerStay(Collider other);
