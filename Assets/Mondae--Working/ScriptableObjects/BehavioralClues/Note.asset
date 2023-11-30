@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a0772fc55b43340bc2c93063571656, type: 3}
+  m_Name: Note
+  m_EditorClassIdentifier: 
+  context: "Apology Note. In sloppy handwriting it could say \u201CI AM SORY. I FELL
+    BAD FOR BREAKENG MOMS VASE\u201D. Maybe a dollar and 2 coins to show she\u2019s
+    leaving her allowance money to pay for it"
+  isPickedUp: 0
+  particleEffectPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
+  cluePrefab: {fileID: 7053415812540907882, guid: b497826c26cac4844bafee80f58e1377, type: 3}

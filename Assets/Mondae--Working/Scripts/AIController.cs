@@ -34,7 +34,7 @@ public class AIController : MonoBehaviour
     private bool isPlayerAlerted = false;
     private Vector3 lastSeenPlayerPosition;
     private float idleTimer = 0f;
-    private Player player; // Assuming Player is a script that holds player-specific data
+    private PlayerScript player; // Assuming Player is a script that holds player-specific data
 
     public float idleDuration = 3f; // Time to idle at each patrol point
 
@@ -52,7 +52,7 @@ public class AIController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        player = playerTransform.GetComponent<Player>();
+        player = playerTransform.GetComponent<PlayerScript>();
         agent.speed = movementSpeed;
         patrolTarget = patrolTarget = RandomNavmeshLocation();
         agent.SetDestination(patrolTarget);
