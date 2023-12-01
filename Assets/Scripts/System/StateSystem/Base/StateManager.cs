@@ -15,15 +15,13 @@ namespace System.StateSystem
         protected bool IsTransitioningState = false;
         
         // Start with current state, do null check ALWAYS
-        private void Start()
+        protected void Start()
         {
-            if (CurrentState == null) return;
-            
             CurrentState.EnterState();
         }
 
         // This is MonoBehavior inheritance will update with the game loop when being instantiated 
-        private void Update()
+        protected void Update()
         {
             var nextStateKey = CurrentState.GetNextState();
             
@@ -39,28 +37,29 @@ namespace System.StateSystem
             }
         }
 
-        private void TransitionToState(TState stateKey)
+        protected void TransitionToState(TState stateKey)
         {
             // Set transitioning state to true, state update happens every frame
             // Using a flag to guard it against unnecessary updates
             IsTransitioningState = true;
+            CurrentState.ResetValues();
             CurrentState.ExitState();
             CurrentState = States[stateKey];
             CurrentState.EnterState();
             IsTransitioningState = false;
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected void OnTriggerEnter(Collider other)
         {
             CurrentState.OnTriggerEnter(other);
         }
 
-        private void OnTriggerStay(Collider other)
+        protected void OnTriggerStay(Collider other)
         {
             CurrentState.OnTriggerStay(other);
         }
 
-        private void OnTriggerExit(Collider other)
+        protected void OnTriggerExit(Collider other)
         {
             CurrentState.OnTriggerExit(other);
         }
