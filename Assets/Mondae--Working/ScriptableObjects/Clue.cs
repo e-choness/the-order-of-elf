@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Clue", menuName = "Clue System/Clue")]
@@ -12,13 +13,5 @@ public class Clue : ScriptableObject
     public void OnPickUp()
     {
         isPickedUp = true;
-        // Activate or instantiate particle effect
-        if (particleEffectPrefab != null)
-        {
-            // Instantiate or enable the particle effect at the clue's position
-            particleEffectPrefab.SetActive(false);
-            Destroy(cluePrefab);
-        }
-        // Additional logic for when the clue is picked up, if necessary
     }
 }

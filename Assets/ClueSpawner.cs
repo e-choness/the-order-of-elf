@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ClueSpawner : MonoBehaviour
 {
     public Clue[] clueData; // Assign this in the inspector
     public Transform[] clueSpawns;
+    public TextMeshProUGUI clueFoundText;
+    public int cluesInt;
 
     void Start()
     {
@@ -31,13 +34,42 @@ public class ClueSpawner : MonoBehaviour
             if (clue != null && clue.cluePrefab != null)
             {
                 Transform spawnLocation = availableSpawns[index];
-                Instantiate(clue.cluePrefab, spawnLocation.position, Quaternion.identity);
-                Instantiate(clue.particleEffectPrefab, spawnLocation.position, clue.cluePrefab.transform.rotation);
+                GameObject spawnedClue = Instantiate(clue.cluePrefab, spawnLocation.position, Quaternion.identity);
+                // Check if there's a particle effect prefab to instantiate
+                if (clue.particleEffectPrefab != null)
+                {
+                    // Instantiate the particle effect as a child of the clue instance
+                    GameObject particleEffectInstance = Instantiate(clue.particleEffectPrefab, spawnedClue.transform.position, Quaternion.identity, spawnedClue.transform);
+                    particleEffectInstance.transform.localPosition = Vector3.zero; // Optionally adjust the local position if needed
+                }
                 clue.isPickedUp = false;
+                Rigidbody rb = spawnedClue.AddComponent<Rigidbody>();
+                spawnedClue.GetComponent<Rigidbody>().useGravity = true;
+                spawnedClue.GetComponent<Rigidbody>().isKinematic = true;
+                SphereCollider collider = spawnedClue.AddComponent<SphereCollider>();
+                collider.isTrigger = true;
+                spawnedClue.tag = "Clue";
+                spawnedClue.AddComponent<ClueInteraction>();
+                ClueBehaviour clueBehaviour = spawnedClue.AddComponent<ClueBehaviour>(); // Add the ClueBehaviour component
+                clueBehaviour.clueData = clue;
 
                 // Now remove the used spawn location
                 availableSpawns.RemoveAt(index);
             }
         }
+    }
+
+    private void Update()
+    {
+        clueFoundText.text = cluesInt + "/9 Clues Found";
+        if(cluesInt >= 9)
+        {
+            clueFoundText.text = "All Clues Found!";
+        }
+    }
+
+    public void ClueFound()
+    {
+        cluesInt++;
     }
 }
