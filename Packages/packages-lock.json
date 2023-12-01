@@ -234,6 +234,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "se.hertzole.gold-player": {
+      "version": "https://github.com/Hertzole/gold-player.git#package",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "50923eb902563d591a67617d76f94684f0fb8bcd"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

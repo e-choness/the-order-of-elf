@@ -20,5 +20,7 @@ namespace System.StateSystem
         public abstract void OnTriggerEnter(Collider other);
         public abstract void OnTriggerStay(Collider other);
         public abstract void OnTriggerExit(Collider other);
+
+        public abstract void ResetValues();
     }
 }
