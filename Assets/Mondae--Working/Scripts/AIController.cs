@@ -17,6 +17,8 @@ public class AIController : MonoBehaviour
     public float movementSpeed;
     public float detectionRadius; // Larger radius for detection
     public float alertRadius; // Smaller radius for alert
+    public float detectionRadiusStart; // Larger radius for detection
+    public float alertRadiusStart; // Smaller radius for alert
     public float followDuration = 5f;
     public float idleAtLastSeenDuration = 3f;
     public float wanderRadius;
@@ -49,18 +51,23 @@ public class AIController : MonoBehaviour
     private float patrolTimer = 0f;
     public float patrolChangeInterval = 10f; // Time after which the patrol target changes
 
+    private DetectionManager worldDetection;
+
 
 
     public Animator animator;
 
     void Start()
     {
+        detectionRadiusStart = detectionRadius;
+        alertRadiusStart = alertRadius;
         agent = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         player = playerTransform.GetComponent<PlayerScript>();
         agent.speed = movementSpeed;
         patrolTarget = patrolTarget = RandomNavmeshLocation();
         agent.SetDestination(patrolTarget);
+        worldDetection = GameObject.FindGameObjectWithTag("WorldManager").GetComponent<DetectionManager>();
 
         NavMeshHit closestHit;
 
@@ -75,6 +82,16 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
+        if (player.controller.Movement.IsCrouching)
+        {
+            detectionRadius = detectionRadiusStart / 2;
+            alertRadius = alertRadiusStart / 2;
+        }
+        else
+        {
+            detectionRadius = detectionRadiusStart;
+            alertRadius = alertRadiusStart;
+        }
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
         // Check for player detection
@@ -198,6 +215,11 @@ public class AIController : MonoBehaviour
         {
             if (currentState != newState)
             {
+                if (newState == State.Alert)
+                    worldDetection.RegisterDetection();
+                else
+                    worldDetection.DeregisterDetection();
+
                 // Reset all animation states
                 animator.SetBool("IsFollowing", newState == State.Follow);
                 animator.SetBool("IsAlert", newState == State.Alert);

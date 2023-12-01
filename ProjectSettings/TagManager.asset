@@ -8,6 +8,7 @@ TagManager:
   - FxTemporaire
   - Clue
   - ClueSpawner
+  - WorldManager
   layers:
   - Default
   - TransparentFX

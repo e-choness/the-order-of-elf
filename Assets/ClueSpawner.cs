@@ -9,6 +9,7 @@ public class ClueSpawner : MonoBehaviour
     public Transform[] clueSpawns;
     public TextMeshProUGUI clueFoundText;
     public int cluesInt;
+    public AudioSource clueSound;
 
     void Start()
     {
@@ -47,6 +48,8 @@ public class ClueSpawner : MonoBehaviour
                 spawnedClue.GetComponent<Rigidbody>().useGravity = true;
                 spawnedClue.GetComponent<Rigidbody>().isKinematic = true;
                 SphereCollider collider = spawnedClue.AddComponent<SphereCollider>();
+                float radius = collider.radius;
+                collider.radius = radius + 0.25f;
                 collider.isTrigger = true;
                 spawnedClue.tag = "Clue";
                 spawnedClue.AddComponent<ClueInteraction>();
@@ -71,5 +74,6 @@ public class ClueSpawner : MonoBehaviour
     public void ClueFound()
     {
         cluesInt++;
+        clueSound.Play();
     }
 }
