@@ -19,6 +19,7 @@ public class AIController : MonoBehaviour
     public float alertRadius; // Smaller radius for alert
     public float followDuration = 5f;
     public float idleAtLastSeenDuration = 3f;
+    public float wanderRadius;
 
     private enum State
     {
@@ -45,6 +46,10 @@ public class AIController : MonoBehaviour
     private bool isRespondingToAlert = false;
     private float resetTimer;
     public float resetDetectionCooldown = 5f;
+    private float patrolTimer = 0f;
+    public float patrolChangeInterval = 10f; // Time after which the patrol target changes
+
+
 
     public Animator animator;
 
@@ -231,6 +236,17 @@ public class AIController : MonoBehaviour
 
     void Patrol()
     {
+        CheckStates();
+        patrolTimer += Time.deltaTime;
+
+        if (patrolTimer >= patrolChangeInterval)
+        {
+            // Time to choose a new patrol target
+            patrolTarget = RandomNavmeshLocation();
+            isIdle = false; // Reset idle state to start moving towards the new target
+            patrolTimer = 0f; // Reset the patrol timer
+        }
+
         if (!isIdle)
         {
             if (Vector3.Distance(transform.position, patrolTarget) < 1f)
@@ -253,21 +269,32 @@ public class AIController : MonoBehaviour
                 // Finished idling, choose a new patrol point
                 patrolTarget = RandomNavmeshLocation();
                 isIdle = false;
-                CheckStates();
+                patrolTimer = 0f; // Reset the patrol timer
             }
         }
     }
 
     Vector3 RandomNavmeshLocation()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * detectionRadius;
+        Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
         randomDirection += transform.position;
         NavMeshHit hit;
         Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomDirection, out hit, detectionRadius, 1))
+
+        // Attempt to find a random point on the NavMesh within wanderRadius.
+        if (NavMesh.SamplePosition(randomDirection, out hit, wanderRadius, NavMesh.AllAreas))
         {
             finalPosition = hit.position;
         }
+        else
+        {
+            // If a point on the NavMesh is not found, find the nearest point on the NavMesh.
+            if (NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.AllAreas))
+            {
+                finalPosition = hit.position;
+            }
+        }
+
         return finalPosition;
     }
 
