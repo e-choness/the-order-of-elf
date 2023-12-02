@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 519685747}
   m_Layer: 0
-  m_Name: ------------- House -------------
+  m_Name: House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1036321254}
   m_Layer: 0
-  m_Name: ---------- Environment ----------
+  m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
