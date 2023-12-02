@@ -93,9 +93,18 @@ public class TimerManager : Singleton<TimerManager>
 
     void UpdateTimerCountDown()
     {
-        int seconds = (int)(timeRemaining % 60.0f);
-        int minutes = (int)(timeRemaining / 60.0f);
-        worldTimer.timerCountDown.text = string.Format("Time Remaining: {0}:{1}", minutes, seconds);
+        // Calculate remaining minutes and seconds
+        var seconds = (int)(timeRemaining % 60.0f);
+        var minutes = (int)(timeRemaining / 60.0f);
+        
+        // Show timer on Timer Count Down
+        worldTimer.timerCountDown.text = string.Format("Time Remaining {0}:{1}", 
+            minutes.ToString("D2"), 
+            seconds.ToString("D2"));
+        
+        // Show Time Is Up message when timer stops
+        if (isTimeUp)
+            worldTimer.timerCountDown.text = "Time Is Up!";
     }
 
 
