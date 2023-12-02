@@ -13,4 +13,14 @@ public class PlayerScript : MonoBehaviour
     {
 
     }
+
+    public void CastSpell(int spell)
+    {
+
+    }
+
+    public void ThrowSand()
+    {
+
+    }
 }
