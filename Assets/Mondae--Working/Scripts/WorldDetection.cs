@@ -7,15 +7,15 @@ public class WorldDetection : MonoBehaviour
 {
     public TextMeshProUGUI detectedText;
     public Slider detectionSlider;
-    public TextMeshProUGUI percentageText; // Text to display the fill percentage
+    public TextMeshProUGUI percentageText; 
     public bool detected;
 
-    public float incrementRate = 0.1f; // The rate at which the slider increases
-    public float decrementRate = 0.05f; // The rate at which the slider decreases
-    public float duration = 2.0f; // Duration over which the increment/decrement happens
+    public float incrementRate = 0.1f; 
+    public float decrementRate = 0.05f; 
+    public float duration = 2.0f; 
 
     private Coroutine changeSliderCoroutine;
-    private bool wasDetectedLastFrame; // Track the detection state across frames
+    private bool wasDetectedLastFrame; 
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +47,7 @@ public class WorldDetection : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            detectionSlider.value = Mathf.Clamp(startValue + (rate * elapsedTime / duration), detectionSlider.minValue, detectionSlider.maxValue);
+            detectionSlider.value = Mathf.Clamp(startValue + (rate * elapsedTime), detectionSlider.minValue, detectionSlider.maxValue);
             UpdatePercentageText();
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -61,6 +61,6 @@ public class WorldDetection : MonoBehaviour
     void UpdatePercentageText()
     {
         float percentage = detectionSlider.value / (detectionSlider.maxValue - detectionSlider.minValue) * 100;
-        percentageText.text = $"{percentage:0}%"; // Format the percentage to one decimal place
+        percentageText.text = $"{percentage:0}%"; 
     }
 }

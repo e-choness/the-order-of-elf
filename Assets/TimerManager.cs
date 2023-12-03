@@ -68,14 +68,14 @@ public class TimerManager : Singleton<TimerManager>
                 timeRemaining = 0;
                 isTimeUp = true;
                 isTimerPaused = true;
-                Debug.LogFormat("Time is up!");
+                //Debug.LogFormat("Time is up!");
             }
 
             UpdateTimerMeter();
             UpdateTimerCountDown();
 
-            Debug.LogFormat("Time remaining {0}", timeRemaining);
-            Debug.LogFormat("Time meter value: {0}", worldTimer.timerMeter.value);
+            //Debug.LogFormat("Time remaining {0}", timeRemaining);
+            //Debug.LogFormat("Time meter value: {0}", worldTimer.timerMeter.value);
             yield return new WaitForSeconds(timeInterval);
 
 

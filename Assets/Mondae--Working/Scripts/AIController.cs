@@ -23,12 +23,16 @@ public class AIController : MonoBehaviour
     public float idleAtLastSeenDuration = 3f;
     public float wanderRadius;
 
+    public GameObject sanded;
+
     private enum State
     {
         Patrol,
         Follow,
-        Alert
+        Alert,
+        Reset // New state for reset behavior
     }
+
     [SerializeField] private State currentState = State.Patrol;
 
     private Transform playerTransform;
@@ -82,6 +86,38 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
+        if (currentState == State.Reset)
+        {
+            sanded.SetActive(true);
+            agent.isStopped = true;
+            animator.SetBool("IsStunned", true);
+            animator.applyRootMotion = true;
+            animator.SetBool("IsFollowing", false);
+            animator.SetBool("IsAlert", false);
+            animator.SetBool("IsPatrolling", false);
+            animator.SetBool("IsIdle", false);
+            resetTimer -= Time.deltaTime;
+            if (resetTimer <= 0)
+            {
+                sanded.SetActive(false);
+                agent.isStopped = false;
+                animator.applyRootMotion = false;
+                animator.SetBool("IsStunned", false);
+                animator.SetBool("IsFollowing", false);
+                animator.SetBool("IsAlert", false);
+                animator.SetBool("IsPatrolling", true);
+                animator.SetBool("IsIdle", false);
+                OnChangeState(State.Patrol); // Resume patrol after cooldown
+            }
+            else
+            {
+                return; // Skip detection and other behaviors during cooldown
+            }
+        }
+        else
+        {
+            sanded.SetActive(false);
+        }
         if (player.controller.Movement.IsCrouching)
         {
             detectionRadius = detectionRadiusStart / 2;
@@ -213,23 +249,32 @@ public class AIController : MonoBehaviour
     {
         if (currentState != newState)
         {
-            if (currentState != newState)
+            switch (newState)
             {
-                if (newState == State.Alert)
-                    worldDetection.RegisterDetection();
-                else
-                    worldDetection.DeregisterDetection();
-
-                // Reset all animation states
-                animator.SetBool("IsFollowing", newState == State.Follow);
-                animator.SetBool("IsAlert", newState == State.Alert);
-                animator.SetBool("IsPatrolling", newState == State.Patrol);
-                animator.SetBool("IsIdle", false); // Make sure to set IsIdle to false when changing state
-
-                currentState = newState;
+                case State.Reset:
+                    // Additional logic when entering reset state if needed
+                    break;
+                case State.Patrol:
+                case State.Follow:
+                case State.Alert:
+                    // Logic for other states
+                    break;
             }
+
+            if (newState == State.Alert)
+                worldDetection.RegisterDetection();
+            else
+                worldDetection.DeregisterDetection();
+
+            // Reset all animation states
+            animator.SetBool("IsFollowing", newState == State.Follow);
+            animator.SetBool("IsAlert", newState == State.Alert);
+            animator.SetBool("IsPatrolling", newState == State.Patrol);
+            animator.SetBool("IsIdle", false); // Make sure to set IsIdle to false when changing state
+
             currentState = newState;
         }
+        currentState = newState;
     }
 
     void NotifyOtherAIs()
@@ -258,6 +303,8 @@ public class AIController : MonoBehaviour
 
     void Patrol()
     {
+        if (currentState == State.Reset) return;
+        agent.speed = 1f;
         CheckStates();
         patrolTimer += Time.deltaTime;
 
@@ -322,6 +369,9 @@ public class AIController : MonoBehaviour
 
     void Follow()
     {
+        if (currentState == State.Reset) return;
+
+        agent.speed = 2f;
         if (isPlayerDetected)
         {
             agent.SetDestination(playerTransform.position);
@@ -355,6 +405,9 @@ public class AIController : MonoBehaviour
 
     void Alert()
     {
+        if (currentState == State.Reset) return;
+
+        agent.speed = 3f;
         if (aiType == AIType.Pet)
         {
             NotifyOtherAIs();
@@ -380,7 +433,7 @@ public class AIController : MonoBehaviour
 
     public void ResetDetection()
     {
-        OnChangeState(State.Patrol);
+        OnChangeState(State.Reset);
         isPlayerDetected = false;
         resetTimer = resetDetectionCooldown;
     }

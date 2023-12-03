@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class MagicManager : MonoBehaviour
 {
-    public Image[] spellImages; // Assign your 3 spell images here in the inspector
-    public float spellReplenishTime = 5f; // Time in seconds to replenish each spell
+    public Image[] spellImages; 
+    public float spellReplenishTime = 5f; 
 
     private int spellsAvailable;
     private float timer;
-    private Stack<int> cooldownStack; // Stack to manage cooldown in reverse order
+    private Stack<int> cooldownStack; 
     public AudioSource magicSource;
 
     public PlayerScript player;
 
     void Start()
     {
-        spellsAvailable = spellImages.Length; // Initially all spells are available
+        spellsAvailable = spellImages.Length; 
         cooldownStack = new Stack<int>();
     }
 
@@ -49,10 +49,10 @@ public class MagicManager : MonoBehaviour
         if (spellsAvailable > 0)
         {
             spellsAvailable--;
-            spellImages[spellsAvailable].enabled = false; // Deactivate the next available spell image
+            spellImages[spellsAvailable].enabled = false; 
 
-            cooldownStack.Push(spellsAvailable); // Add the spell to the cooldown stack
-            if (cooldownStack.Count == 1) // Start timer if this is the first spell in cooldown
+            cooldownStack.Push(spellsAvailable); 
+            if (cooldownStack.Count == 1) 
             {
                 timer = spellReplenishTime;
             }
@@ -65,17 +65,16 @@ public class MagicManager : MonoBehaviour
         if (cooldownStack.Count > 0)
         {
             int spellToReplenish = cooldownStack.Pop();
-            spellImages[spellToReplenish].enabled = true; // Re-enable the spell image
+            spellImages[spellToReplenish].enabled = true; 
             spellsAvailable++;
 
-            // Reset the timer if there are more spells in cooldown
             if (cooldownStack.Count > 0)
             {
                 timer = spellReplenishTime;
             }
             else
             {
-                timer = 0; // No more spells in cooldown
+                timer = 0; 
             }
         }
     }

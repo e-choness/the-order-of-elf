@@ -9,11 +9,13 @@ TagManager:
   - Clue
   - ClueSpawner
   - WorldManager
+  - Sand
+  - AI
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
