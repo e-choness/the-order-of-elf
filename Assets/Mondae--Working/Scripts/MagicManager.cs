@@ -9,9 +9,10 @@ public class MagicManager : MonoBehaviour
     public float spellReplenishTime = 5f; 
 
     private int spellsAvailable;
-    private float timer;
+    public float timer;
     private Stack<int> cooldownStack; 
     public AudioSource magicSource;
+    public bool spellCast;
 
     public PlayerScript player;
 
@@ -23,9 +24,21 @@ public class MagicManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && spellsAvailable > 0) player.CastSpell(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2) && spellsAvailable > 0) player.CastSpell(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3) && spellsAvailable > 0) player.CastSpell(2);
+        if (Input.GetKeyDown(KeyCode.Alpha1) && spellsAvailable > 0 && !player.isMorphed)
+        {
+            player.CastSpell(1);
+            spellCast = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && spellsAvailable > 0 && !player.isInvisible)
+        {
+            player.CastSpell(2);
+            spellCast = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && spellsAvailable > 0 && !player.isInvisible && !player.isMorphed)
+        {
+            player.CastSpell(3);
+            spellCast = true;
+        }
 
         // Check for spell casting
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3))
@@ -46,7 +59,7 @@ public class MagicManager : MonoBehaviour
 
     void CastSpell()
     {
-        if (spellsAvailable > 0)
+        if (spellsAvailable > 0 && spellCast)
         {
             spellsAvailable--;
             spellImages[spellsAvailable].enabled = false; 
@@ -57,6 +70,7 @@ public class MagicManager : MonoBehaviour
                 timer = spellReplenishTime;
             }
             magicSource.Play();
+            spellCast = false;
         }
     }
 

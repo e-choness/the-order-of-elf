@@ -7,6 +7,7 @@ public class HideZones : MonoBehaviour
 {
     public TextMeshProUGUI hiddenText;
     public GameObject effect;
+    public bool hiddenActivated;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +24,14 @@ public class HideZones : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerScript>().isHidden = true;
-            if (hiddenText.enabled == false)
-                hiddenText.enabled = true;
-            effect.SetActive(false);
+            if (other.GetComponent<PlayerScript>().isHidden == false)
+            {
+                hiddenActivated = true;
+                other.GetComponent<PlayerScript>().isHidden = true;
+                if (hiddenText.enabled == false)
+                    hiddenText.enabled = true;
+                effect.SetActive(false);
+            }
         }
     }
 
@@ -34,9 +39,12 @@ public class HideZones : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerScript>().isHidden = false;
-            hiddenText.enabled = false;
-            effect.SetActive(true);
+            if (hiddenActivated == true)
+            {
+                other.GetComponent<PlayerScript>().isHidden = false;
+                hiddenText.enabled = false;
+                effect.SetActive(true);
+            }
         }
     }
 }
