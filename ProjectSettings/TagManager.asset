@@ -5,11 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - FxTemporaire
+  - Clue
+  - ClueSpawner
+  - WorldManager
+  - Sand
+  - AI
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
