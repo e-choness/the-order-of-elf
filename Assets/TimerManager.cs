@@ -27,7 +27,7 @@ public class TimerManager : Singleton<TimerManager>
     public bool isTimeUp;
     public bool isTimerPaused;
 
-    private void Start()
+    void OnEnable()
     {
         timeRemaining = timeForMission;
         isTimeUp = false;

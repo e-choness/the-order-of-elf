@@ -6,7 +6,7 @@ public class DetectionManager : MonoBehaviour
     public int detectionCount = 0;
     public WorldDetection worldDetection;
 
-    void Awake()
+    void OnEnable()
     {
         if (instance != null && instance != this)
         {

@@ -11,6 +11,7 @@ TagManager:
   - WorldManager
   - Sand
   - AI
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
-  - 
+  - AI
+  - Cast
   - 
   - 
   - 

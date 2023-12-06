@@ -35,13 +35,13 @@ public class AIController : MonoBehaviour
 
     [SerializeField] private State currentState = State.Patrol;
 
-    private Transform playerTransform;
+    public Transform playerTransform;
     private NavMeshAgent agent;
     private bool isPlayerDetected = false;
     private bool isPlayerAlerted = false;
     private Vector3 lastSeenPlayerPosition;
     private float idleTimer = 0f;
-    private PlayerScript player; // Assuming Player is a script that holds player-specific data
+    public PlayerScript player; // Assuming Player is a script that holds player-specific data
 
     public float idleDuration = 3f; // Time to idle at each patrol point
 
@@ -61,7 +61,7 @@ public class AIController : MonoBehaviour
 
     public Animator animator;
 
-    void Start()
+    void OnEnable()
     {
         detectionRadiusStart = detectionRadius;
         alertRadiusStart = alertRadius;
@@ -86,6 +86,8 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
+        if (player == null)
+            player = playerTransform.GetComponent<PlayerScript>();
         if (currentState == State.Reset)
         {
             sanded.SetActive(true);

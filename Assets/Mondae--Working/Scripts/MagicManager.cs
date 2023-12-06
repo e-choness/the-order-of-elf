@@ -15,36 +15,108 @@ public class MagicManager : MonoBehaviour
     public bool spellCast;
 
     public PlayerScript player;
+    public LayerMask interactableLayer; // Layer mask for interactable objects (like AI NPCs)
 
-    void Start()
+    public Sprite[] sprites;
+    public Image magic1;
+    public Image magic2;
+
+    public bool ability1Active;
+    public bool ability2Active;
+
+    void OnEnable()
     {
         spellsAvailable = spellImages.Length; 
         cooldownStack = new Stack<int>();
+
+        string ability1 = PlayerPrefs.GetString("Ability1");
+        if (ability1 == "SHIMMER")
+        {
+            magic1.sprite = sprites[0];
+        }
+        else if (ability1 == "MORPH")
+        {
+            magic1.sprite = sprites[1];
+        }
+        else if (ability1 == "SECOND SIGHT")
+        {
+            magic1.sprite = sprites[2];
+        }
+
+        string ability2 = PlayerPrefs.GetString("Ability2");
+        if (ability2 == "SHIMMER")
+        {
+            magic2.sprite = sprites[0];
+        }
+        else if (ability2 == "MORPH")
+        {
+            magic2.sprite = sprites[1];
+        }
+        else if (ability2 == "SECOND SIGHT")
+        {
+            magic2.sprite = sprites[2];
+        }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && spellsAvailable > 0 && !player.isMorphed)
+        // Check if the player has pressed the key for ability 1, has spells available, and is not already casting a spell
+        if (Input.GetKeyDown(KeyCode.Alpha1) && spellsAvailable > 0 && !player.isMorphed && !player.isCast && !player.isInvisible)
         {
-            player.CastSpell(1);
-            spellCast = true;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && spellsAvailable > 0 && !player.isInvisible)
-        {
-            player.CastSpell(2);
-            spellCast = true;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3) && spellsAvailable > 0 && !player.isInvisible && !player.isMorphed)
-        {
-            player.CastSpell(3);
-            spellCast = true;
+            // Retrieve the string for ability 1 from PlayerPrefs and check which ability it corresponds to
+            string ability1 = PlayerPrefs.GetString("Ability1");
+            if (ability1 == "SHIMMER")
+            {
+                player.CastSpell(1); // Cast the spell associated with SHIMMER
+                CastSpell();
+                spellCast = true; // Set the flag indicating a spell was cast
+                ability1Active = true;
+                player.image1.color = Color.green;
+            }
+            else if (ability1 == "MORPH")
+            {
+                player.CastSpell(2); // Cast the spell associated with MORPH
+                CastSpell();
+                spellCast = true; // Set the flag indicating a spell was cast
+                ability1Active = true;
+                player.image1.color = Color.green;
+            }
+            else if (ability1 == "SECOND SIGHT")
+            {
+                TryCastVision(1); // Cast the spell associated with SECOND SIGHT
+            }
         }
 
-        // Check for spell casting
-        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3))
+        // Check if the player has pressed the key for ability 2, has spells available, and is not already casting a spell
+        if (Input.GetKeyDown(KeyCode.Alpha2) && spellsAvailable > 0 && !player.isInvisible && !player.isCast && !player.isMorphed)
         {
-            CastSpell();
+            // Retrieve the string for ability 2 from PlayerPrefs and check which ability it corresponds to
+            string ability2 = PlayerPrefs.GetString("Ability2");
+            if (ability2 == "SHIMMER")
+            {
+                player.CastSpell(1); // Cast the spell associated with SHIMMER
+                CastSpell();
+                spellCast = true; // Set the flag indicating a spell was cast
+                ability2Active = true;
+                player.image2.color = Color.green;
+            }
+            else if (ability2 == "MORPH")
+            {
+                player.CastSpell(2); // Cast the spell associated with MORPH
+                CastSpell();
+                spellCast = true; // Set the flag indicating a spell was cast
+                ability2Active = true;
+                player.image2.color = Color.green;
+            }
+            else if (ability2 == "SECOND SIGHT")
+            {
+                TryCastVision(2); // Cast the spell associated with SECOND SIGHT
+            }
         }
+        //if (Input.GetKeyDown(KeyCode.Alpha3) && spellsAvailable > 0 && !player.isInvisible && !player.isMorphed && !player.isCast)
+        //{
+        //    TryCastVision();
+        //}
 
         // Update cooldown timer
         if (cooldownStack.Count > 0 && timer > 0)
@@ -53,6 +125,31 @@ public class MagicManager : MonoBehaviour
             if (timer <= 0)
             {
                 ReplenishSpell();
+            }
+        }
+    }
+
+    void TryCastVision(int slot)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(player.playerCamera.transform.position, player.playerCamera.transform.forward, out hit, 10f, interactableLayer))
+        {
+            if (hit.collider.tag == "Interactable")
+            {
+                player.hitObject = hit.collider.gameObject;
+                player.CastSpell(3); // Cast the vision spell on the interactable object
+                spellCast = true;
+                CastSpell();
+                if (slot == 1)
+                {
+                    ability1Active = true;
+                    player.image1.color = Color.green;
+                }
+                else
+                {
+                    ability2Active = true;
+                    player.image2.color = Color.green;
+                }
             }
         }
     }

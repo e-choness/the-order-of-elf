@@ -15,7 +15,7 @@ public class SandManager : MonoBehaviour
     private float timer;
     private Stack<int> cooldownStack;
 
-    void Start()
+    void OnEnable()
     {
         sandAvailable = sandImages.Length;
         cooldownStack = new Stack<int>();
