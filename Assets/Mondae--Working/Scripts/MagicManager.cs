@@ -71,7 +71,7 @@ public class MagicManager : MonoBehaviour
                 CastSpell();
                 spellCast = true; // Set the flag indicating a spell was cast
                 ability1Active = true;
-                player.image1.color = Color.green;
+                player.image1.color = Color.red;
             }
             else if (ability1 == "MORPH")
             {
@@ -79,7 +79,7 @@ public class MagicManager : MonoBehaviour
                 CastSpell();
                 spellCast = true; // Set the flag indicating a spell was cast
                 ability1Active = true;
-                player.image1.color = Color.green;
+                player.image1.color = Color.blue;
             }
             else if (ability1 == "SECOND SIGHT")
             {
@@ -98,7 +98,7 @@ public class MagicManager : MonoBehaviour
                 CastSpell();
                 spellCast = true; // Set the flag indicating a spell was cast
                 ability2Active = true;
-                player.image2.color = Color.green;
+                player.image2.color = Color.red;
             }
             else if (ability2 == "MORPH")
             {
@@ -106,7 +106,7 @@ public class MagicManager : MonoBehaviour
                 CastSpell();
                 spellCast = true; // Set the flag indicating a spell was cast
                 ability2Active = true;
-                player.image2.color = Color.green;
+                player.image2.color = Color.blue;
             }
             else if (ability2 == "SECOND SIGHT")
             {
