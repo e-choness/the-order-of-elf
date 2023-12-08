@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     public bool isCast;
     public GameObject sandBlast;
     public Transform spawnPosition;
+    public Transform spawnPositionSand;
     public GameObject toyPrefab; // Reference to the toy prefab
     private GameObject currentToyInstance; // Reference to the instantiated toy
     public GameObject elfPlayer;
@@ -192,10 +193,10 @@ public class PlayerScript : MonoBehaviour
 
     public void ThrowSand()
     {
-        GameObject blast = Instantiate(sandBlast, spawnPosition.position, spawnPosition.rotation);
+        GameObject blast = Instantiate(sandBlast, spawnPositionSand.position, spawnPositionSand.rotation);
 
         // Convert Vector3.back to the character's local space
-        Vector3 localBack = spawnPosition.TransformDirection(Vector3.forward);
+        Vector3 localBack = spawnPositionSand.TransformDirection(Vector3.forward);
 
         // Apply force in the local back direction
         blast.GetComponent<Rigidbody>().AddForce(localBack * 100);
