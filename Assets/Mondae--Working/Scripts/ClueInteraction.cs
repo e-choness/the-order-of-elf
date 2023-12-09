@@ -22,7 +22,7 @@ public class ClueInteraction : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            clueSpawner.ClueFound();
+            clueSpawner.ClueFound(GetComponent<ClueBehaviour>().clueData);
             GetComponent<ClueBehaviour>().clueData.OnPickUp();
             Destroy(gameObject);
         }

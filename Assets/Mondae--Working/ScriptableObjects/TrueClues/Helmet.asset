@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Helmet
   m_EditorClassIdentifier: 
   context: T-Rex Skate Helmet
-  isPickedUp: 0
+  isPickedUp: 1
   particleEffectPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
   cluePrefab: {fileID: 7170174962598077293, guid: 29ce81a1959c9ca41ba57fbed4240acc, type: 3}

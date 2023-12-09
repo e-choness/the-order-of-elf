@@ -11,8 +11,18 @@ public class ClueSpawner : MonoBehaviour
     public int cluesInt;
     public AudioSource clueSound;
 
+    public GameObject solved;
+    public bool cluesFound;
+    public GameObject endCanvas;
+
+    public TextMeshProUGUI clueList;
+
+    private List<string> foundClueContexts = new List<string>();
+    public GameObject clueListUI;
+
     void Start()
     {
+        solved.SetActive(false);
         SpawnClues();
     }
 
@@ -67,15 +77,46 @@ public class ClueSpawner : MonoBehaviour
     private void Update()
     {
         clueFoundText.text = cluesInt + "/9 Clues Found";
-        if (cluesInt >= 9)
+        if (cluesInt >= 9 && !cluesFound)
         {
             clueFoundText.text = "All Clues Found!";
+            cluesFound = true;
+            solved.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3) && cluesFound)
+        {
+            solved.SetActive(false);
+            endCanvas.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            // Toggle the active state of the UI GameObject
+            clueListUI.SetActive(!clueListUI.activeSelf);
         }
     }
 
-    public void ClueFound()
+    public void ClueFound(Clue clue)
     {
         cluesInt++;
         clueSound.Play();
+        foundClueContexts.Add(clue.GetContext());
+
+        // Update UI or call a method to display the updated list of found clues
+        UpdateClueListUI();
     }
+    private void UpdateClueListUI()
+    {
+        string clueListText = "Found Clues:\n";
+        foreach (string context in foundClueContexts)
+        {
+            clueListText += "- " + context + "\n";
+        }
+
+        // Assuming you have a TextMeshProUGUI component to display the list
+        // Replace 'yourTextComponent' with the actual component
+        clueList.text = clueListText;
+    }
+
 }

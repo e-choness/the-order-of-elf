@@ -33,6 +33,7 @@ public class ParentClue : MonoBehaviour
                 hasInteracted = true;
                 clueManager.cluesInt++;
                 clueManager.clueSound.Play();
+                clueManager.ClueFound(clue);
             }
         }
     }

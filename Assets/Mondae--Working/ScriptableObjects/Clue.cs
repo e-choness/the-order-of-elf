@@ -14,4 +14,9 @@ public class Clue : ScriptableObject
     {
         isPickedUp = true;
     }
+
+    public string GetContext()
+    {
+        return context;
+    }
 }
