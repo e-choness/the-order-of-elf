@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a0772fc55b43340bc2c93063571656, type: 3}
   m_Name: Basketball
   m_EditorClassIdentifier: 
-  context: Soccer Ball
+  context: Dino Basketball
   isPickedUp: 0
   particleEffectPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
-  cluePrefab: {fileID: 1559113662988582, guid: c771dc487345feb4aa9946a24d7d7713, type: 3}
+  cluePrefab: {fileID: 1954716761681953039, guid: 084409735783faa4a9e61acfc31b3f6d, type: 3}

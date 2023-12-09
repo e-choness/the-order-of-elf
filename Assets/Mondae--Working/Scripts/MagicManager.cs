@@ -8,7 +8,7 @@ public class MagicManager : MonoBehaviour
     public Image[] spellImages; 
     public float spellReplenishTime = 5f; 
 
-    private int spellsAvailable;
+    public int spellsAvailable;
     public float timer;
     private Stack<int> cooldownStack; 
     public AudioSource magicSource;
@@ -68,16 +68,16 @@ public class MagicManager : MonoBehaviour
             if (ability1 == "SHIMMER")
             {
                 player.CastSpell(1); // Cast the spell associated with SHIMMER
-                CastSpell();
                 spellCast = true; // Set the flag indicating a spell was cast
+                CastSpell();
                 ability1Active = true;
                 player.image1.color = Color.red;
             }
             else if (ability1 == "MORPH")
             {
                 player.CastSpell(2); // Cast the spell associated with MORPH
-                CastSpell();
                 spellCast = true; // Set the flag indicating a spell was cast
+                CastSpell();
                 ability1Active = true;
                 player.image1.color = Color.blue;
             }
@@ -95,16 +95,16 @@ public class MagicManager : MonoBehaviour
             if (ability2 == "SHIMMER")
             {
                 player.CastSpell(1); // Cast the spell associated with SHIMMER
-                CastSpell();
                 spellCast = true; // Set the flag indicating a spell was cast
+                CastSpell();
                 ability2Active = true;
                 player.image2.color = Color.red;
             }
             else if (ability2 == "MORPH")
             {
                 player.CastSpell(2); // Cast the spell associated with MORPH
-                CastSpell();
                 spellCast = true; // Set the flag indicating a spell was cast
+                CastSpell();
                 ability2Active = true;
                 player.image2.color = Color.blue;
             }
@@ -158,6 +158,7 @@ public class MagicManager : MonoBehaviour
     {
         if (spellsAvailable > 0 && spellCast)
         {
+            spellCast = false;
             spellsAvailable--;
             spellImages[spellsAvailable].enabled = false; 
 
@@ -167,7 +168,6 @@ public class MagicManager : MonoBehaviour
                 timer = spellReplenishTime;
             }
             magicSource.Play();
-            spellCast = false;
         }
     }
 
