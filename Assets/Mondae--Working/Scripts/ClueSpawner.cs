@@ -44,7 +44,9 @@ public class ClueSpawner : MonoBehaviour
                     particleEffectInstance.transform.localPosition = Vector3.zero; // Optionally adjust the local position if needed
                 }
                 clue.isPickedUp = false;
-                Rigidbody rb = spawnedClue.AddComponent<Rigidbody>();
+                if (spawnedClue.GetComponent<Rigidbody>() == null)
+                    spawnedClue.AddComponent<Rigidbody>();
+                Rigidbody rb = spawnedClue.GetComponent<Rigidbody>();
                 spawnedClue.GetComponent<Rigidbody>().useGravity = true;
                 spawnedClue.GetComponent<Rigidbody>().isKinematic = true;
                 SphereCollider collider = spawnedClue.AddComponent<SphereCollider>();
@@ -65,7 +67,7 @@ public class ClueSpawner : MonoBehaviour
     private void Update()
     {
         clueFoundText.text = cluesInt + "/9 Clues Found";
-        if(cluesInt >= 9)
+        if (cluesInt >= 9)
         {
             clueFoundText.text = "All Clues Found!";
         }
