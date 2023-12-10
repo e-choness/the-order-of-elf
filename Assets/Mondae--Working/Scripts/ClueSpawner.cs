@@ -61,7 +61,7 @@ public class ClueSpawner : MonoBehaviour
                 spawnedClue.GetComponent<Rigidbody>().isKinematic = true;
                 SphereCollider collider = spawnedClue.AddComponent<SphereCollider>();
                 float radius = collider.radius;
-                collider.radius = radius + 0.25f;
+                collider.radius = radius + 0.4f;
                 collider.isTrigger = true;
                 spawnedClue.tag = "Clue";
                 spawnedClue.AddComponent<ClueInteraction>();
