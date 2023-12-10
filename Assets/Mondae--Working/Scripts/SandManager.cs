@@ -24,7 +24,7 @@ public class SandManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0) && sandAvailable > 0)
+        if (Input.GetMouseButtonDown(0) && sandAvailable > 0 && !player.isPaused)
         {
             player.ThrowSand();
             sandAvailable--;

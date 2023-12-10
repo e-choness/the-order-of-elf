@@ -43,6 +43,7 @@ public class PlayerScript : MonoBehaviour
     public bool isInteracting;
     private GameObject hitClue;
     public GameObject interactionUI;
+    public bool isPaused;
 
     private void OnEnable()
     {
@@ -64,7 +65,7 @@ public class PlayerScript : MonoBehaviour
             magicManager.timer = 5;
         }
 
-        if (Input.GetKeyDown(KeyCode.E)) // Assuming E is the interact key
+        if (Input.GetKeyDown(KeyCode.E) && !isPaused) // Assuming E is the interact key
         {
             CheckForInteractable();
         }
@@ -87,6 +88,12 @@ public class PlayerScript : MonoBehaviour
             hitClue.GetComponent<ClueBehaviour>().clueData.OnPickUp();
             isInteracting = false;
             Destroy(hitClue);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            // Toggle the active state of the UI GameObject
+            isPaused = !isPaused;
         }
     }
 

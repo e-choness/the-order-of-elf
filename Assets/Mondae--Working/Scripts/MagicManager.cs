@@ -61,7 +61,7 @@ public class MagicManager : MonoBehaviour
     void Update()
     {
         // Check if the player has pressed the key for ability 1, has spells available, and is not already casting a spell
-        if (Input.GetKeyDown(KeyCode.Alpha1) && spellsAvailable > 0 && !player.isMorphed && !player.isCast && !player.isInvisible)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && spellsAvailable > 0 && !player.isMorphed && !player.isCast && !player.isInvisible && !player.isPaused)
         {
             // Retrieve the string for ability 1 from PlayerPrefs and check which ability it corresponds to
             string ability1 = PlayerPrefs.GetString("Ability1");
@@ -88,7 +88,7 @@ public class MagicManager : MonoBehaviour
         }
 
         // Check if the player has pressed the key for ability 2, has spells available, and is not already casting a spell
-        if (Input.GetKeyDown(KeyCode.Alpha2) && spellsAvailable > 0 && !player.isInvisible && !player.isCast && !player.isMorphed)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && spellsAvailable > 0 && !player.isInvisible && !player.isCast && !player.isMorphed && !player.isPaused)
         {
             // Retrieve the string for ability 2 from PlayerPrefs and check which ability it corresponds to
             string ability2 = PlayerPrefs.GetString("Ability2");
