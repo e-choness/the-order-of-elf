@@ -6,6 +6,7 @@ using UnityEngine;
 public class ReviewClues : MonoBehaviour
 {
     public GoldPlayerController controller;
+    public PlayerScript player;
     void Update()
     {
         // When UI is active, show the cursor and unlock it.
@@ -30,5 +31,16 @@ public class ReviewClues : MonoBehaviour
 
         // Resume the game
         Time.timeScale = 1f;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void Resume()
+    {
+        player.isPaused = false;
+        this.gameObject.SetActive(false);
     }
 }

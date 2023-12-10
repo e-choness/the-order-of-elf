@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
@@ -27,6 +28,9 @@ public class TimerManager : Singleton<TimerManager>
     public bool isTimeUp;
     public bool isTimerPaused;
 
+    public GameObject gameOver;
+    public TextMeshProUGUI finalText;
+
     void OnEnable()
     {
         timeRemaining = timeForMission;
@@ -52,7 +56,12 @@ public class TimerManager : Singleton<TimerManager>
             ResumeTimer();
         }
 
-        if (isTimeUp) StopTimer();
+        if (isTimeUp)
+        {
+            finalText.text = "YOU HAVE RAN OUT OF TIME";
+            gameOver.SetActive(true);
+            StopTimer();
+        }
     }
 
     IEnumerator Coundown()
