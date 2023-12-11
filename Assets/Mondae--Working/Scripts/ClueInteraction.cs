@@ -17,14 +17,4 @@ public class ClueInteraction : MonoBehaviour
     {
         
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            clueSpawner.ClueFound(GetComponent<ClueBehaviour>().clueData);
-            GetComponent<ClueBehaviour>().clueData.OnPickUp();
-            Destroy(gameObject);
-        }
-    }
 }

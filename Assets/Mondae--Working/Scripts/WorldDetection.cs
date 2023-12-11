@@ -17,6 +17,9 @@ public class WorldDetection : MonoBehaviour
     private Coroutine changeSliderCoroutine;
     private bool wasDetectedLastFrame;
 
+    public GameObject gameOver;
+    public TextMeshProUGUI finalText;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -37,6 +40,12 @@ public class WorldDetection : MonoBehaviour
             }
             changeSliderCoroutine = StartCoroutine(ChangeSliderValue(detected ? incrementRate : -decrementRate));
             wasDetectedLastFrame = detected;
+        }
+
+        if(detectionSlider.value == 1)
+        {
+            finalText.text = "YOU HAVE BEEN DETECTED";
+            gameOver.SetActive(true);
         }
     }
 

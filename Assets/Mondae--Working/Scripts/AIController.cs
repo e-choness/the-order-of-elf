@@ -24,6 +24,7 @@ public class AIController : MonoBehaviour
     public float wanderRadius;
 
     public GameObject sanded;
+    public GameObject detectionRadiusIndicator;
 
     private enum State
     {
@@ -57,7 +58,9 @@ public class AIController : MonoBehaviour
 
     private DetectionManager worldDetection;
 
-
+    public Material normal;
+    public Material follow;
+    public Material alert;
 
     public Animator animator;
 
@@ -82,6 +85,7 @@ public class AIController : MonoBehaviour
             agent.enabled = true;
         }
         Patrol();
+        detectionRadiusIndicator.transform.localScale = new Vector3(detectionRadius * 2, detectionRadius * 2, detectionRadius * 2);
     }
 
     void Update()
@@ -120,6 +124,9 @@ public class AIController : MonoBehaviour
         {
             sanded.SetActive(false);
         }
+
+        detectionRadiusIndicator.transform.localScale = new Vector3(detectionRadius, .001f, detectionRadius);
+
         if (player.controller.Movement.IsCrouching)
         {
             detectionRadius = detectionRadiusStart / 2;
@@ -212,8 +219,8 @@ public class AIController : MonoBehaviour
                     else
                     {
                         // Player is not detected
-                        OnChangeState(State.Patrol);
-                        Patrol();// Go back to patrol
+                        OnChangeState(State.Follow);
+                        Follow();// Go back to patrol
                         isRespondingToAlert = false; // Reset alert state
                     }
                 }
@@ -306,6 +313,7 @@ public class AIController : MonoBehaviour
     void Patrol()
     {
         if (currentState == State.Reset) return;
+        detectionRadiusIndicator.GetComponent<MeshRenderer>().material = normal;
         agent.speed = 1f;
         CheckStates();
         patrolTimer += Time.deltaTime;
@@ -372,7 +380,7 @@ public class AIController : MonoBehaviour
     void Follow()
     {
         if (currentState == State.Reset) return;
-
+        detectionRadiusIndicator.GetComponent<MeshRenderer>().material = follow;
         agent.speed = 2f;
         if (isPlayerDetected)
         {
@@ -383,32 +391,32 @@ public class AIController : MonoBehaviour
             OnChangeState(State.Patrol);
             Patrol();
         }
-        if (Vector3.Distance(transform.position, lastSeenPlayerPosition) < 1f && !activatedAlert && !isIdle)
-        {
-            isIdle = true;
-            activatedAlert = true;
-        }
-        if (isIdle && activatedAlert)
-        {
-            idleTimer = idleDuration;
-            resetTimer = idleDuration + 5;
-            idleTimer -= Time.deltaTime;
-            resetTimer -= Time.deltaTime;
-            if (idleTimer <= 0)
-            {
-                isIdle = false;
-                animator.SetBool("IsFollowing", true);
-                animator.SetBool("IsAlert", false);
-                animator.SetBool("IsPatrolling", false);
-                animator.SetBool("IsIdle", false);
-            }
-        }
+        //if (Vector3.Distance(transform.position, lastSeenPlayerPosition) < 1f && !activatedAlert && !isIdle)
+        //{
+        //    isIdle = true;
+        //    activatedAlert = true;
+        //}
+        //if (isIdle && activatedAlert)
+        //{
+        //    idleTimer = idleDuration;
+        //    resetTimer = idleDuration + 5;
+        //    idleTimer -= Time.deltaTime;
+        //    resetTimer -= Time.deltaTime;
+        //    if (idleTimer <= 0)
+        //    {
+        //        isIdle = false;
+        //        animator.SetBool("IsFollowing", true);
+        //        animator.SetBool("IsAlert", false);
+        //        animator.SetBool("IsPatrolling", false);
+        //        animator.SetBool("IsIdle", false);
+        //    }
+        //}
     }
 
     void Alert()
     {
         if (currentState == State.Reset) return;
-
+        detectionRadiusIndicator.GetComponent<MeshRenderer>().material = alert;
         agent.speed = 3f;
         if (aiType == AIType.Pet)
         {
@@ -436,6 +444,7 @@ public class AIController : MonoBehaviour
     public void ResetDetection()
     {
         OnChangeState(State.Reset);
+        detectionRadiusIndicator.GetComponent<MeshRenderer>().material = null;
         isPlayerDetected = false;
         resetTimer = resetDetectionCooldown;
     }

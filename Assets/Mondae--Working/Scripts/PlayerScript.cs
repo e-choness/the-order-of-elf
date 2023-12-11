@@ -39,6 +39,11 @@ public class PlayerScript : MonoBehaviour
     public GameObject hitObject;
 
     public GameObject[] ai;
+    public ClueSpawner clueSpawner;
+    public bool isInteracting;
+    private GameObject hitClue;
+    public GameObject interactionUI;
+    public bool isPaused;
 
     private void OnEnable()
     {
@@ -54,12 +59,13 @@ public class PlayerScript : MonoBehaviour
     }
     private void Update()
     {
+        interactionUI.SetActive(isInteracting);
         if (isMorphed || isInvisible || isCast)
         {
             magicManager.timer = 5;
         }
 
-        if (Input.GetKeyDown(KeyCode.E)) // Assuming E is the interact key
+        if (Input.GetKeyDown(KeyCode.E) && !isPaused) // Assuming E is the interact key
         {
             CheckForInteractable();
         }
@@ -75,6 +81,20 @@ public class PlayerScript : MonoBehaviour
         //}
 
         PerformRaycastCheck();
+
+        if (isInteracting && Input.GetKeyDown(KeyCode.E) && hitClue != null)
+        {
+            clueSpawner.ClueFound(hitClue.GetComponent<ClueBehaviour>().clueData);
+            hitClue.GetComponent<ClueBehaviour>().clueData.OnPickUp();
+            isInteracting = false;
+            Destroy(hitClue);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            // Toggle the active state of the UI GameObject
+            isPaused = !isPaused;
+        }
     }
 
     //private void TryCastVision()
@@ -249,6 +269,15 @@ public class PlayerScript : MonoBehaviour
         {
             image2.color = Color.white;
             magicManager.ability2Active = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Clue") && !isInteracting)
+        {
+            isInteracting = true;
+            hitClue = other.gameObject;
         }
     }
 }
