@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -377599455088117670, guid: 647dfb6fa9b68b743b603ec844b5f7f4, type: 3}
+  - {fileID: 2100000, guid: 30dbf043757a5274781c6f721a9762b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3760854326138849905}
   - component: {fileID: 7277380242200888678}
   m_Layer: 0
-  m_Name: Plane.001
+  m_Name: ScienceFair_Award_Tassle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 3129401762784543764}
   - component: {fileID: 8854053588059076857}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: ScienceFair_Award
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
