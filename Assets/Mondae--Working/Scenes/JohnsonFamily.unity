@@ -74942,7 +74942,7 @@ MonoBehaviour:
     type: 0
     inputName: Crouch
     inputNameSecondary: 
-    key: 99
+    key: 113
   - buttonName: Run
     type: 0
     inputName: Run
@@ -75116,7 +75116,7 @@ MonoBehaviour:
     airJumpsAmount: 0
     allowAirJumpDirectionChange: 1
     canCrouch: 1
-    crouchToggleMode: 0
+    crouchToggleMode: 1
     crouchSpeeds:
       forwardSpeed: 1
       sidewaysSpeed: 0.5
