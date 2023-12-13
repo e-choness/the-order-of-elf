@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Mondae--Working/Scenes/JohnsonFamily.unity
-    guid: ccf4804e1d55356449f6a7b8d227e387
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 3fa2679066a5b674984ac7dfe2e5321c
+  - enabled: 1
+    path: Assets/Scenes/JohnsonFamily.unity
+    guid: feb67e12d027f5249a1f86589d9f05c6
   m_configObjects: {}

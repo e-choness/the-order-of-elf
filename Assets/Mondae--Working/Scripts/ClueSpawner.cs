@@ -79,8 +79,8 @@ public class ClueSpawner : MonoBehaviour
         clueFoundText.text = cluesInt + "/9 Clues Found";
         if (cluesInt >= 9 && !cluesFound)
         {
-            clueFoundText.text = "All Clues Found!";
             cluesFound = true;
+            clueFoundText.text = "All Clues Found!";
             solved.SetActive(true);
         }
 
@@ -108,7 +108,7 @@ public class ClueSpawner : MonoBehaviour
     }
     private void UpdateClueListUI()
     {
-        string clueListText = "Found Clues:\n";
+        string clueListText = "";
         foreach (string context in foundClueContexts)
         {
             clueListText += "- " + context + "\n";

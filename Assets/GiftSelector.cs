@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GiftSelector : MonoBehaviour
@@ -17,7 +18,6 @@ public class GiftSelector : MonoBehaviour
     public Button submitReport;
     public TextMeshProUGUI giftText;
     public TextMeshProUGUI loadingText;
-    public TextMeshProUGUI quitText;
     public TextMeshProUGUI listText;
 
     public GameObject ReportUI;
@@ -44,7 +44,6 @@ public class GiftSelector : MonoBehaviour
             ai.SetActive(false);
         }
         ReportUI.SetActive(false);
-        quitText.enabled = false;
         loadingText.enabled = false;
         gift1.onClick.AddListener(() => SelectGift("Dino Dart Blaster 5000"));
         gift2.onClick.AddListener(() => SelectGift("Bite Me, Vampire Teeth"));
@@ -163,6 +162,14 @@ public class GiftSelector : MonoBehaviour
             resultsText.text = "Correct gift and list selected.  You have been PROMOTED";
         else if (criteria.neutral)
             resultsText.text = "Incorrect gift or list selected.  You have received a RECOGNITION";
-        quitText.enabled = true;
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene("JohnsonFamily");
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

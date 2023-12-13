@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a0772fc55b43340bc2c93063571656, type: 3}
   m_Name: Note
   m_EditorClassIdentifier: 
-  context: "Apology Note. In sloppy handwriting it could say \u201CI AM SORY. I FELL
-    BAD FOR BREAKENG MOMS VASE\u201D. Maybe a dollar and 2 coins to show she\u2019s
-    leaving her allowance money to pay for it"
+  context: "Apology Note. In sloppy handwriting, \u201CI AM SORY. I FELL BAD FOR
+    BREAKENG MOMS VASE\u201D. Maybe a dollar and 2 coins to show she\u2019s leaving
+    her allowance money to pay for it.\""
   isPickedUp: 0
   particleEffectPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
   cluePrefab: {fileID: 2261313388762228656, guid: 1d4fd7fac141f4d43b8d9fe8e4ed2fb2, type: 3}

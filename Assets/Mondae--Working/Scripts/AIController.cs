@@ -85,7 +85,7 @@ public class AIController : MonoBehaviour
             agent.enabled = true;
         }
         Patrol();
-        detectionRadiusIndicator.transform.localScale = new Vector3(detectionRadius * 2, detectionRadius * 2, detectionRadius * 2);
+        detectionRadiusIndicator.transform.localScale = new Vector3(detectionRadius, .001f, detectionRadius);
     }
 
     void Update()
@@ -105,6 +105,7 @@ public class AIController : MonoBehaviour
             resetTimer -= Time.deltaTime;
             if (resetTimer <= 0)
             {
+                detectionRadiusIndicator.SetActive(true);
                 sanded.SetActive(false);
                 agent.isStopped = false;
                 animator.applyRootMotion = false;
@@ -444,7 +445,7 @@ public class AIController : MonoBehaviour
     public void ResetDetection()
     {
         OnChangeState(State.Reset);
-        detectionRadiusIndicator.GetComponent<MeshRenderer>().material = null;
+        detectionRadiusIndicator.SetActive(false);
         isPlayerDetected = false;
         resetTimer = resetDetectionCooldown;
     }
