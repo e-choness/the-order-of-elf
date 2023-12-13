@@ -13,16 +13,16 @@ public const string MUSIC_KEY = "musicVolume";
 public const string SFX_KEY = "SFXVolume";
    void Awake()
    {
-        if (instance == null)
-        {
-            instance = this;
+        //if (instance == null)
+        //{
+        //    instance = this;
 
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
 
         LoadVolume();
    }
@@ -30,9 +30,9 @@ public const string SFX_KEY = "SFXVolume";
    void LoadVolume() //Volume saved in VolumeSetting.cs
    {
     float musicVolume = PlayerPrefs.GetFloat(MUSIC_KEY, 1f);
-    float SFXVolume = PlayerPrefs.GetFloat(SFX_KEY, 1f);
+    //float SFXVolume = PlayerPrefs.GetFloat(SFX_KEY, 1f);
     
     mixer.SetFloat(VolumeSettings.MIXER_MUSIC, Mathf.Log10(musicVolume) * 20);
-    mixer.SetFloat(VolumeSettings.MIXER_SFX, Mathf.Log10(SFXVolume) * 20);
+    //mixer.SetFloat(VolumeSettings.MIXER_SFX, Mathf.Log10(SFXVolume) * 20);
    }
 }
