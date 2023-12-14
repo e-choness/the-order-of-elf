@@ -31,8 +31,6 @@ public class ParentClue : MonoBehaviour
             if(!hasInteracted)
             {
                 hasInteracted = true;
-                clueManager.cluesInt++;
-                clueManager.clueSound.Play();
                 clueManager.ClueFound(clue);
             }
         }

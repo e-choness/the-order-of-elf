@@ -13,8 +13,9 @@ public class ClueInteraction : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void OnTriggerExit(Collider other)
     {
-        
+        if(other.CompareTag("Player"))
+            other.GetComponent<PlayerScript>().isInteracting = false;
     }
 }
