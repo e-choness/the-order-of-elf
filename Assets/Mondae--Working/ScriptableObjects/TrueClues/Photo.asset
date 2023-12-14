@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a0772fc55b43340bc2c93063571656, type: 3}
   m_Name: Photo
   m_EditorClassIdentifier: 
-  context: Photo of CARLA posing with Stego Skeleton at the museum
+  context: Photo of Carla posing with Stego Skeleton at the museum
   isPickedUp: 0
   particleEffectPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
   cluePrefab: {fileID: 5687282354528306203, guid: a6b928810fe0b554582a825e91e5f847, type: 3}

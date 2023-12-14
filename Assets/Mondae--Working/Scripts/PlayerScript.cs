@@ -44,6 +44,7 @@ public class PlayerScript : MonoBehaviour
     private GameObject hitClue;
     public GameObject interactionUI;
     public bool isPaused;
+    public GameObject parentInteract;
 
     private void OnEnable()
     {
@@ -117,7 +118,10 @@ public class PlayerScript : MonoBehaviour
             if (hit.collider.tag == "AI")
             {
                 if (hit.collider.gameObject.GetComponent<ParentClue>() != null)
+                {
                     hit.collider.gameObject.GetComponent<ParentClue>().HandleInteraction(true);
+                    parentInteract.SetActive(true);
+                }
             }
             else if (hit.collider.tag == "Interactable" && (PlayerPrefs.GetString("Ability1") == "SECOND SIGHT" || (PlayerPrefs.GetString("Ability2") == "SECOND SIGHT")))
             {
@@ -127,6 +131,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
+            parentInteract.SetActive(false);
             ResetAllInteractions();
         }
     }
@@ -257,6 +262,7 @@ public class PlayerScript : MonoBehaviour
 
         // Destroy toy and re-enable player
         elfPlayer.SetActive(true);
+        Destroy(currentToyInstance);
         currentToyInstance.GetComponentInChildren<AudioSource>().Stop();
         isMorphed = false;
         isHidden = false;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a0772fc55b43340bc2c93063571656, type: 3}
   m_Name: Skateboard
   m_EditorClassIdentifier: 
-  context: WHEELIE Out of This World Skateboard
+  context: Wheelie Out of This World Skateboard
   isPickedUp: 0
   particleEffectPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
   cluePrefab: {fileID: 4124134182267315552, guid: 1c7d5273f180309459dd933b5e627d1a, type: 3}
