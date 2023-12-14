@@ -21,14 +21,14 @@ TagManager:
   - UI
   - AI
   - Cast
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - UpstairsCeiling
+  - UpstairsWalls
+  - UpstairsItems
+  - DownstairsWalls
+  - DonwstairsItems
+  - DownstairsCeiling
+  - UpstairsFloor
+  - DownstairsFloor
   - 
   - 
   - 
