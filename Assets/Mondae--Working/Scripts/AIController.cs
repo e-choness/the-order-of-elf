@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.VersionControl.Asset;
 
 public class AIController : MonoBehaviour
 {

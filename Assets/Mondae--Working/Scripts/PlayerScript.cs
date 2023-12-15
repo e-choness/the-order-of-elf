@@ -44,6 +44,13 @@ public class PlayerScript : MonoBehaviour
     private GameObject hitClue;
     public GameObject interactionUI;
     public bool isPaused;
+    public GameObject parentInteract;
+
+    public GameObject bobCamera;
+    public GameObject crouchCamera;
+    public GameObject castSight2;
+    public GameObject castSight1;
+    public GameObject undoSpell;
 
     private void OnEnable()
     {
@@ -59,11 +66,28 @@ public class PlayerScript : MonoBehaviour
     }
     private void Update()
     {
+        if (controller.Movement.IsCrouching)
+        {
+            bobCamera.SetActive(false);
+            crouchCamera.SetActive(true);
+        }
+        else
+        {
+            bobCamera.SetActive(true);
+            crouchCamera.SetActive(false);
+        }
         interactionUI.SetActive(isInteracting);
         if (isMorphed || isInvisible || isCast)
         {
             magicManager.timer = 5;
         }
+
+        if(isMorphed || isCast)
+        {
+            undoSpell.SetActive(true);
+        }
+        else
+            undoSpell.SetActive(false);
 
         if (Input.GetKeyDown(KeyCode.E) && !isPaused) // Assuming E is the interact key
         {
@@ -117,16 +141,27 @@ public class PlayerScript : MonoBehaviour
             if (hit.collider.tag == "AI")
             {
                 if (hit.collider.gameObject.GetComponent<ParentClue>() != null)
+                {
                     hit.collider.gameObject.GetComponent<ParentClue>().HandleInteraction(true);
+                    parentInteract.SetActive(true);
+                }
             }
             else if (hit.collider.tag == "Interactable" && (PlayerPrefs.GetString("Ability1") == "SECOND SIGHT" || (PlayerPrefs.GetString("Ability2") == "SECOND SIGHT")))
             {
                 hitObject = hit.collider.gameObject;
                 hit.collider.gameObject.GetComponent<SightObject>().HandleInteraction(true);
+                if (PlayerPrefs.GetString("Ability1") == "SECOND SIGHT")
+                    castSight1.SetActive(true);
+                else if (PlayerPrefs.GetString("Ability2") == "SECOND SIGHT")
+                    castSight2.SetActive(true);
+
             }
         }
         else
         {
+            castSight1.SetActive(false);
+            castSight2.SetActive(false);
+            parentInteract.SetActive(false);
             ResetAllInteractions();
         }
     }
@@ -257,6 +292,7 @@ public class PlayerScript : MonoBehaviour
 
         // Destroy toy and re-enable player
         elfPlayer.SetActive(true);
+        Destroy(currentToyInstance);
         currentToyInstance.GetComponentInChildren<AudioSource>().Stop();
         isMorphed = false;
         isHidden = false;

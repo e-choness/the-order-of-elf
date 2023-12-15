@@ -8,6 +8,8 @@ public class Credits : MonoBehaviour
     // Start is called before the first frame update
     private Animator mAnimator;
     public Button credz;
+    private bool isAnimating;
+
     void Start()
     {
         mAnimator = GetComponent<Animator>();
@@ -20,12 +22,24 @@ public class Credits : MonoBehaviour
     }
 
     public void StartAnimation()
+    {
+        if (!isAnimating)
         {
-            mAnimator.SetBool(("Start"), true);
+            mAnimator.SetBool("Start", true);
+            isAnimating = true;
         }
+    }
+
     public void StopAnimation()
-        {
-            mAnimator.SetBool(("Start"), false);
-        }
+    {
+        mAnimator.SetBool("Start", false);
+        isAnimating = false;
+        ResetAnimation();
+    }
+
+    private void ResetAnimation()
+    {
+        mAnimator.Play("Credit Animation", -1, 0f);
+    }
 }
 

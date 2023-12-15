@@ -12,11 +12,13 @@ public class CameraControler : MonoBehaviour
 
     // Start is called before the first frame update
    
-   void Update()
+   void Start()
    {
-    
-   }
-   public void LookAt(Transform target)
+
+        Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+
+    }
+    public void LookAt(Transform target)
    {
     transform.DOLookAt(target.position, duration);
     Debug.Log("Looking");
