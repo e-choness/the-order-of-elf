@@ -83,8 +83,6 @@ Shimmer: Brief invisibility.
 
 - Human and pet detection states can be seen by the radius found at their feet
 
-
-
 ### Credits
 
 ABK Jam Team 7
