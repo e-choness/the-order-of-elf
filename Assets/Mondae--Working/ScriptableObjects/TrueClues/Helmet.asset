@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a0772fc55b43340bc2c93063571656, type: 3}
+  m_Name: Helmet
+  m_EditorClassIdentifier: 
+  context: T-Rex Skate Helmet
+  isPickedUp: 0
+  particleEffectPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
+  cluePrefab: {fileID: 7170174962598077293, guid: 29ce81a1959c9ca41ba57fbed4240acc, type: 3}

@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -69,28 +68,18 @@ namespace Player
             }
         }
 
-        private void Update()
-        {
-            // GetMoveVector();
-        }
-
-        private void GetMoveVector()
-        {
-            _moveDirection = _moveAction.ReadValue<Vector2>().normalized;
-        }
-
         private void FixedUpdate()
         {
-            Move();
+            Walk();
         }
 
-        private void Move()
+        private void Walk()
         {
-            // _rigidbody.velocity = new Vector3(_moveDirection.x, 0.0f,
-            //     _moveDirection.y) * (moveSpeed * Time.fixedDeltaTime);
             _moveDirection = _moveAction.ReadValue<Vector2>().normalized;
             _rigidbody.AddForce(new Vector3(_moveDirection.x, 0.0f,
             _moveDirection.y) * (moveSpeed * Time.fixedDeltaTime), ForceMode.VelocityChange);
+            
+            Debug.LogFormat("{0} - {1} at {2}", nameof(PlayerInput), nameof(Walk), _moveDirection.ToString() );
         }
 
 
