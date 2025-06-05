@@ -1,5 +1,7 @@
 # The Order of E.L.F
 
+---
+
 ## Welcome to the Order of E.L.F
 
 **The game is now playable on [itch.io](https://solarlunareclipse.itch.io/order-of-elf), please check it out and give us feedback!**
@@ -11,6 +13,8 @@
 The Order of E.L.F is a stealth-based adventure game where players use magic and cunning to gather intel on their child target during Christmas Eve. Your findings determine whether the child's list goes to Santa or Krampus.
 
 ### Development Details
+
+---
 
 #### Game Engine
 
@@ -28,6 +32,8 @@ The Order of E.L.F is a stealth-based adventure game where players use magic and
 - **Packages/**: Unity package dependencies (`manifest.json` and `packages-lock.json`).
 - **ProjectSettings/**: Unity project settings files (e.g., `GraphicsSettings.asset`, `InputManager.asset`).
 - **README-img/**: Images used in the README (e.g., control schemes, magic abilities).
+
+---
 
 ### Core Gameplay
 
@@ -73,6 +79,8 @@ The Order of E.L.F is a stealth-based adventure game where players use magic and
 - Second Sight objects are indicated by blue diamonds when using the ability.
 - Human and pet detection states are visualized by the radius at their feet.
 
+---
+
 ### Credits
 
 #### ABK Jam Team 7
@@ -88,6 +96,8 @@ The Order of E.L.F is a stealth-based adventure game where players use magic and
 | Molly Carroll     | Environment Artist and 3D Modeler                 |
 | Lu Xu             | Opening Cinematic Artist                          |
 | Andre B           | Concept Artist                                    |
+
+---
 
 ### License
 
