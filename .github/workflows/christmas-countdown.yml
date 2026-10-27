@@ -1,0 +1,27 @@
+name: Christmas countdown
+
+# Keeps the "Christmas Eve in N days" badge in the README up to date.
+on:
+  schedule:
+    - cron: '7 5 * * *' # daily, 05:07 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  countdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node .github/scripts/christmas-countdown.mjs
+      - name: Commit if changed
+        run: |
+          if git diff --quiet README.md; then exit 0; fi
+          git config user.name "elf-countdown[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore: update Christmas countdown 🎄"
+          git push

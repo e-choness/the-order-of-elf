@@ -1,4 +1,14 @@
+<p align="center"><img src="../media-kit/art/banner-1920x480.png" alt="The Order of E.L.F." width="100%"></p>
+
 # The Order of E.L.F. — Web Edition
+
+[![Play on itch.io](https://img.shields.io/badge/%E2%96%B6%20Play-itch.io-FA5C5C?style=flat-square&logo=itchdotio&logoColor=white)](https://echoness.itch.io/the-order-of-elf-remake)
+![three.js](https://img.shields.io/github/package-json/dependency-version/e-choness/the-order-of-elf/three?filename=web%2Fpackage.json&style=flat-square&logo=threedotjs&label=three.js&color=000000)
+![postprocessing](https://img.shields.io/github/package-json/dependency-version/e-choness/the-order-of-elf/postprocessing?filename=web%2Fpackage.json&style=flat-square&label=postprocessing)
+![Vite](https://img.shields.io/github/package-json/dependency-version/e-choness/the-order-of-elf/dev/vite?filename=web%2Fpackage.json&style=flat-square&logo=vite&logoColor=white&label=vite)
+![TypeScript](https://img.shields.io/github/package-json/dependency-version/e-choness/the-order-of-elf/dev/typescript?filename=web%2Fpackage.json&style=flat-square&logo=typescript&logoColor=white&label=typescript)
+
+**Play now: [echoness.itch.io/the-order-of-elf-remake](https://echoness.itch.io/the-order-of-elf-remake)** · Press kit: [`../media-kit`](../media-kit/)
 
 A browser remake of the ABK Jam Team 7 Unity game, rebuilt as a first-person
 stealth **immersive sim** with Three.js. Sneak through houses on Christmas Eve,
@@ -11,7 +21,7 @@ back up the chimney and decide: **Santa’s Nice list or Krampus’s Naughty lis
 cd web
 npm install
 npm run dev        # http://localhost:5173
-npm run build      # static build in web/dist (works from any sub-folder)
+npm run build      # static build in web/dist (works from any sub-folder — zip it for itch.io)
 npm run preview
 ```
 
