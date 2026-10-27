@@ -92,6 +92,7 @@ export class Game implements GameCtx {
   private intro = 2.2;
   private boxMesh: THREE.Object3D | null = null;
   private wornBox: HideSpot | null = null;
+  private hideWitnessed = false;
   private boxSince = 0;
   private moonStrength = 0.35;
   private lastChime = -1;
@@ -381,6 +382,8 @@ export class Game implements GameCtx {
       return;
     }
     this.hiding = h;
+    this.hideWitnessed = this.npcs.some((n) => n.isHuman && n.seeing > 0.12 && (n.state === 'alert' || n.state === 'search' || n.state === 'investigate' || n.suspicion > 0.5));
+    if (this.hideWitnessed) this.toast('They saw where you went… if they come close, you’re done for.', 'muted');
     this.hideReturn = this.player.pos.clone();
     // the elf's body is now at the hiding spot (for hearing, smell and bumping)
     this.player.pos.set(h.anchor.x, this.player.pos.y, h.anchor.z);
@@ -548,7 +551,18 @@ export class Game implements GameCtx {
       for (const n of this.npcs) n.perceive();
     }
     for (const n of this.npcs) n.update(dt, this.time);
-    for (const i of this.interactables) if (i instanceof PetTalk || i instanceof SleepListen) i.syncPos();
+    for (const i of this.interactables) if (i instanceof PetTalk || i instanceof SleepListen || i instanceof DoorInteract) i.syncPos();
+    // hiding right under someone's nose doesn't work
+    if (this.hiding && this.hideWitnessed) {
+      for (const n of this.npcs) {
+        if (!n.isHuman || (n.state !== 'alert' && n.state !== 'search' && n.state !== 'investigate')) continue;
+        if (Math.hypot(n.pos.x - this.hiding.anchor.x, n.pos.z - this.hiding.anchor.z) < 1.25) {
+          n.say(this.hiding.def.kind === 'closet' ? 'Aha! Found you in the closet!' : this.hiding.def.kind === 'underBed' ? 'Gotcha! Under the bed!' : 'Peekaboo, little elf!', true);
+          this.onCaught(n);
+          break;
+        }
+      }
+    }
     this.updateMotionLights();
     this.updateConversations(dt);
     this.updateDetection(dt);

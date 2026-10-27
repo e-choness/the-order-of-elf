@@ -64,7 +64,13 @@ export class Input {
   }
 
   isDown(code: string) { return this.enabled && this.down.has(code); }
-  wasPressed(code: string) { return this.enabled && this.pressed.has(code); }
+  /** headless tests drive the game without pointer lock */
+  allowUnlocked = false;
+  wasPressed(code: string) {
+    // mouse clicks only count while the pointer is captured (the capture click itself is ignored)
+    if (code.startsWith('Mouse') && !this.locked && !this.allowUnlocked) return false;
+    return this.enabled && this.pressed.has(code);
+  }
   wasReleased(code: string) { return this.enabled && this.released.has(code); }
   anyPressed(...codes: string[]) { return codes.some((c) => this.wasPressed(c)); }
   anyDown(...codes: string[]) { return codes.some((c) => this.isDown(c)); }

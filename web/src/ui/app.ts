@@ -216,7 +216,8 @@ export class App {
 
   private unlocked(l: LevelDef) {
     const i = LEVELS.indexOf(l);
-    return i <= 0 || !!save.missions[LEVELS[i - 1].id]?.completed;
+    // the tutorial and the first real house are always open
+    return i <= 1 || !!save.missions[LEVELS[i - 1].id]?.completed;
   }
 
   showMissions() {

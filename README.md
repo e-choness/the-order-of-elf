@@ -6,6 +6,10 @@
 
 **The game is now playable on [itch.io](https://solarlunareclipse.itch.io/order-of-elf), please check it out and give us feedback!**
 
+> 🎄 **New: Web Edition.** The game has been remade for the browser in [`web/`](web/) — a Three.js
+> immersive-sim remake with four missions, light/sound-based stealth AI, new spells, festive UI and
+> CC0 Kenney art. Run it with `cd web && npm install && npm run dev`. See [web/README.md](web/README.md).
+
 [![The Order of E.L.F](README-img/elf.gif)](https://solarlunareclipse.itch.io/order-of-elf)
 
 ### Overview

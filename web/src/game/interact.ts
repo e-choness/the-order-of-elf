@@ -183,6 +183,18 @@ export class DoorInteract extends Interactable {
     this.radius = 0.5;
   }
   prompt() { return this.door.locked ? null : this.door.open ? 'Close door' : 'Open door'; }
+  /** focus the leaf itself when open, so looking through a doorway doesn't grab focus */
+  syncPos() {
+    if (this.door.open && Math.abs(this.door.angle) > 0.4) {
+      this.door.leaf.updateWorldMatrix(true, false);
+      const w = this.door.width * 0.5;
+      this.pos.set(w, 1.0, 0).applyMatrix4(this.door.leaf.matrixWorld);
+      this.radius = 0.35;
+    } else {
+      this.pos.copy(this.door.center).setY(1.0);
+      this.radius = 0.5;
+    }
+  }
   blocked() { return this.door.locked ? 'Locked — elves use chimneys' : null; }
   use(g: Game) {
     if (this.door.locked) {
