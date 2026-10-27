@@ -54,7 +54,7 @@ Fraunces, Nunito, Caveat (handwritten notes), Special Elite (dossiers) and
 Mountains of Christmas.
 
 **Quality of life** — four graphics presets, FOV/sensitivity/invert, subtitle
-size, reduce-motion, vision-cone toggle, rebindable-free sensible defaults,
+size, reduce-motion and vision-cone toggles, a
 journal with evidence / household / gift shortlist, star ranks, medals and saved
 progress.
 
