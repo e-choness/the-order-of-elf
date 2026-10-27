@@ -178,6 +178,7 @@ export class Renderer {
   private buildPipeline() {
     this.composer.removeAllPasses();
     for (const p of this.passes) p.dispose?.();
+    (this.ao as unknown as { dispose?: () => void } | null)?.dispose?.();
     this.passes = [];
     const q = this.quality;
     this.renderPass = new RenderPass(this.scene, this.camera);

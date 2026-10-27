@@ -844,6 +844,13 @@ export class Game implements GameCtx {
 
   dispose() {
     for (const n of this.npcs) n.dispose();
+    // free GPU buffers (shared model geometry simply re-uploads if reused later)
+    this.scene.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.geometry) m.geometry.dispose();
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      for (const mat of mats) mat.dispose();
+    });
     this.scene.clear();
   }
 }
