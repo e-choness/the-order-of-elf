@@ -1,104 +1,263 @@
-# The Order of E.L.F
+<p align="center">
+  <a href="https://echoness.itch.io/the-order-of-elf-remake"><img src="media-kit/art/banner-1920x480.png" alt="The Order of E.L.F. — Elves Lurking Festively" width="100%"></a>
+</p>
+
+<h1 align="center">The Order of E.L.F.</h1>
+<p align="center"><b>Elves Lurking Festively</b> · a cosy Christmas stealth immersive sim for the browser</p>
+
+<p align="center">
+  <a href="https://echoness.itch.io/the-order-of-elf-remake"><img alt="Play free on itch.io" src="https://img.shields.io/badge/%E2%96%B6%20PLAY%20FREE-on%20itch.io-FA5C5C?style=for-the-badge&logo=itchdotio&logoColor=white"></a>
+  <a href="media-kit/"><img alt="Press kit" src="https://img.shields.io/badge/%F0%9F%93%B0%20Press-Media%20kit-E8C062?style=for-the-badge"></a>
+  <a href="https://solarlunareclipse.itch.io/order-of-elf"><img alt="Original jam game" src="https://img.shields.io/badge/Original-Unity%20jam%20game-1F5A45?style=for-the-badge&logo=unity&logoColor=white"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/e-choness/the-order-of-elf/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/e-choness/the-order-of-elf?style=flat-square&logo=github&color=E8C062"></a>
+  <a href="https://github.com/e-choness/the-order-of-elf/commits"><img alt="Last commit" src="https://img.shields.io/github/last-commit/e-choness/the-order-of-elf?style=flat-square&color=C0283B"></a>
+  <a href="https://github.com/e-choness/the-order-of-elf/graphs/commit-activity"><img alt="Commit activity" src="https://img.shields.io/github/commit-activity/m/e-choness/the-order-of-elf?style=flat-square&color=1F5A45"></a>
+  <a href="https://github.com/e-choness/the-order-of-elf/actions/workflows/deploy-web.yml"><img alt="Web build" src="https://img.shields.io/github/actions/workflow/status/e-choness/the-order-of-elf/deploy-web.yml?style=flat-square&label=web%20build"></a>
+  <img alt="Version" src="https://img.shields.io/github/package-json/v/e-choness/the-order-of-elf?filename=web%2Fpackage.json&style=flat-square&label=web%20edition&color=BFE3FF">
+  <img alt="Repo size" src="https://img.shields.io/github/repo-size/e-choness/the-order-of-elf?style=flat-square&color=8F97B3">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/e-choness/the-order-of-elf?style=flat-square&color=B18CFF"></a>
+</p>
+
+<p align="center">
+  <img alt="three.js" src="https://img.shields.io/github/package-json/dependency-version/e-choness/the-order-of-elf/three?filename=web%2Fpackage.json&style=flat-square&logo=threedotjs&label=three.js&color=000000">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white">
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white">
+  <img alt="WebGL 2" src="https://img.shields.io/badge/WebGL-2-990000?style=flat-square&logo=webgl&logoColor=white">
+  <img alt="Web Audio" src="https://img.shields.io/badge/Web%20Audio-live%20carols-ff8fa3?style=flat-square">
+  <img alt="Kenney CC0" src="https://img.shields.io/badge/art-Kenney%20CC0-4fbf8a?style=flat-square">
+  <img alt="Unity" src="https://img.shields.io/badge/original-Unity%202021.3-222222?style=flat-square&logo=unity">
+</p>
+
+<!-- countdown:start -->
+<p align="center"><img alt="Countdown to Christmas" src="https://img.shields.io/badge/%F0%9F%8E%84%20Christmas%20Eve%20in-58%20days-C0283B?style=for-the-badge"></p>
+<!-- countdown:end -->
+
+<p align="center">
+  <img src="media-kit/gif/sneaking.gif" alt="Sneaking through the Johnson house" width="49%">
+  <img src="media-kit/gif/snowy-house-orbit.gif" alt="The Johnson house on a snowy night" width="49%">
+</p>
+
+> Every Christmas Eve, wish lists get smudged. Slide down the chimney, sneak past parents, pets and one
+> very suspicious robot vacuum, gather evidence of what the child **really** wants — then decide whether
+> their list goes to **Santa** 🎅 or **Krampus** 👹.
+
+## 🎮 Play
+
+| | |
+| --- | --- |
+| **Web remake** (recommended) | **[echoness.itch.io/the-order-of-elf-remake](https://echoness.itch.io/the-order-of-elf-remake)** — free, runs in your browser |
+| **Original jam game** (Unity) | [solarlunareclipse.itch.io/order-of-elf](https://solarlunareclipse.itch.io/order-of-elf) |
+| **Run locally** | `cd web && npm install && npm run dev` → <http://localhost:5173> |
+
+Desktop browser with keyboard & mouse. Best with headphones 🎧.
+
+## ✨ Features
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**🔦 Light & shadow stealth** — a live light gem samples every lamp, the fire, torch beams and
+moonbeams through the windows. Switch lamps off… and watch someone switch them back on.
+
+**👂 Sound that travels** — carpet muffles, tile clatters, floorboards squeak, glass baubles
+shatter; walls and closed doors dampen it all.
+
+**🧠 A household with routines** — wrapping presents, midnight snacks, phone calls,
+gossip about the kids. Suspicion → investigation → chase → search.
+
+</td>
+<td width="50%" valign="top">
+
+**✨ Elf magic** — Shimmer, Morph, Second Sight, Jingle Lure and Christmas Cheer dust.
+
+**🧰 Imsim toolkit** — hide in wardrobes, under beds, behind curtains, among presents or in a
+cardboard box; throw things; climb furniture; befriend the dog; eat Santa's cookies.
+
+**🕵️ Deduction** — wishes, deeds and rumours, with decoys that only careful reading exposes.
+File your report: right gift + right ledger = promotion.
+
+</td>
+</tr>
+</table>
+
+## 🖼️ Screenshots
+
+| | | |
+| --- | --- | --- |
+| ![Title](media-kit/screenshots/01-title.jpg) | ![Living room](media-kit/screenshots/02-living-room.jpg) | ![Spotted](media-kit/screenshots/03-spotted.jpg) |
+| ![Frostbrook Cabin](media-kit/screenshots/04-frostbrook-cabin.jpg) | ![Whitmore Manor](media-kit/screenshots/05-whitmore-manor.jpg) | ![Second Sight](media-kit/screenshots/06-second-sight.jpg) |
+| ![Briefing](media-kit/screenshots/08-briefing.jpg) | ![Journal](media-kit/screenshots/10-journal.jpg) | ![Results](media-kit/screenshots/12-results.jpg) |
+
+More in the **[media kit](media-kit/)** — logos, key art, banners, icons, GIFs and a fact sheet.
+
+## 🗺️ Missions
+
+| # | House | Child | Twist |
+| --- | --- | --- | --- |
+| 0 | **Elf Academy: Night Drill** | “Holly Practice” | Guided training against a clockwork automaton |
+| 1 | **The Johnson House** | Carla, 9 | The original jam level, expanded — a cat who gossips |
+| 2 | **Frostbrook Cabin** | Theo, 11 | The kid is awake, Grandpa has a torch, the dog smells magic |
+| 3 | **Whitmore Manor** | Ollie, 7 | Teen on her phone, dozing aunt, motion-sensor lights, robot vacuum |
+
+## ⌨️ Controls
+
+| Key | Action | Key | Action |
+| --- | --- | --- | --- |
+| `W A S D` | Move | `E` | Interact · hide · hold to search |
+| `Mouse` | Look | `Left click` | Christmas Cheer / throw held item |
+| `Shift` | Sprint (loud) | `Right click` | Drop held item |
+| `Q` / `C` | Crouch | `1` `2` | Cast spells |
+| `Space` | Jump / climb | `F` | Tag a person (Second Sight) |
+| `Tab` / `Esc` | Journal & pause | `3` | Report (all clues found) |
+
+<details>
+<summary><b>🧠 How the household thinks</b> (NPC state machine)</summary>
+
+```mermaid
+stateDiagram-v2
+    [*] --> Routine
+    Routine --> Suspicious: glimpse / small noise
+    Routine --> Investigate: loud noise / pet alarm
+    Routine --> Fix: lamp off · broken ornament
+    Routine --> Converse: scheduled chat
+    Suspicious --> Investigate: suspicion grows
+    Suspicious --> Routine: lost interest
+    Investigate --> Alert: clear sighting
+    Investigate --> Routine: "Must be the eggnog…"
+    Alert --> Search: lost sight
+    Search --> Alert: spotted again
+    Search --> Routine: gave up
+    Alert --> Caught: touched you / meter full
+    Routine --> Stunned: Christmas Cheer
+    Alert --> Stunned: Christmas Cheer
+    Stunned --> Routine
+    Fix --> Routine
+    Converse --> Routine
+```
+
+</details>
+
+<details>
+<summary><b>🔁 The mission loop</b></summary>
+
+```mermaid
+flowchart LR
+    A[🎅 Down the chimney] --> B{Explore}
+    B -->|read · search · eavesdrop| C[📓 Evidence journal]
+    B -->|seen?| D[😱 Detection rises]
+    D -->|hide · dust · shimmer| B
+    D -->|100%| X[🚨 Caught]
+    C -->|enough clues| E[🔥 Climb the chimney]
+    E --> F[📝 Report: gift + ledger]
+    F --> G{Verdict}
+    G -->|both right| P[🏅 Promotion]
+    G -->|one right| R[🎖️ Recognition]
+    G -->|both wrong| M[🧹 Demotion]
+```
+
+</details>
+
+<details>
+<summary><b>🛠️ Tech stack & project layout</b></summary>
+
+| Layer | What |
+| --- | --- |
+| Rendering | three.js r186 · pmndrs postprocessing (N8AO, mip bloom, SMAA, AgX) · custom grading pass |
+| World | procedural house builder (walls, openings, trim, roof), Kenney CC0 props, canvas textures |
+| AI | grid A* with string-pulling, perception (sight/hearing/smell), routines & conversations |
+| Audio | Web Audio: HRTF sound effects, live-synthesised public-domain carols that react to tension |
+| UI | DOM + CSS (frosted glass HUD), Fraunces / Nunito / Caveat / Special Elite fonts |
+| Tooling | Vite 8, TypeScript (strict), level validator at `/#validate`, GitHub Pages workflow |
+
+```
+web/            ← the browser remake (see web/README.md)
+media-kit/      ← press kit: screenshots, logos, art, GIFs, fact sheet, store copy
+Assets/ …       ← the original Unity 2021.3 project
+```
+
+</details>
 
 ---
 
-## Welcome to the Order of E.L.F
+## 🧊 The original Unity game
 
-**The game is now playable on [itch.io](https://solarlunareclipse.itch.io/order-of-elf), please check it out and give us feedback!**
+The Order of E.L.F. started as a stealth adventure made by **ABK Jam Team 7** in Unity 2021.3.26f1:
+use magic and cunning to gather intel on a child during Christmas Eve — your findings decide whether
+their list goes to Santa or Krampus.
 
-[![The Order of E.L.F](README-img/elf.gif)](https://solarlunareclipse.itch.io/order-of-elf)
+[![The Order of E.L.F (original)](README-img/elf.gif)](https://solarlunareclipse.itch.io/order-of-elf)
 
-### Overview
+<details>
+<summary>Original project details, controls and win criteria</summary>
 
-The Order of E.L.F is a stealth-based adventure game where players use magic and cunning to gather intel on their child target during Christmas Eve. Your findings determine whether the child's list goes to Santa or Krampus.
+#### Game engine
+- **Unity Version**: 2021.3.26f1 — [download](https://unity.com/releases/editor/whats-new/2021.3.26)
+- **Gold Player** for movement — [GitHub](https://github.com/Hertzole/gold-player)
 
-### Development Details
+#### Project structure
+- **Assets/** — scripts, scenes, materials and input configurations
+- **Packages/** — Unity package dependencies
+- **ProjectSettings/** — Unity project settings
+- **README-img/** — images used in this README
 
----
-
-#### Game Engine
-
-- **Unity Version**: 2021.3.26f1  
-  [Download Unity v2021.3.26f1](https://unity.com/releases/editor/whats-new/2021.3.26)
-
-#### Asset Packages
-
-- **Gold Player**: A Unity package for player movement and controls.  
-  [Gold Player GitHub Repository](https://github.com/Hertzole/gold-player)
-
-#### Project Structure
-
-- **Assets/**: Contains game assets such as scripts, scenes, materials, and input configurations.
-- **Packages/**: Unity package dependencies (`manifest.json` and `packages-lock.json`).
-- **ProjectSettings/**: Unity project settings files (e.g., `GraphicsSettings.asset`, `InputManager.asset`).
-- **README-img/**: Images used in the README (e.g., control schemes, magic abilities).
-
----
-
-### Core Gameplay
-
+#### Core gameplay
 - **Objective**: Gather all Christmas clues located throughout the house before time runs out.
-- **Avoid Detection**: Stay hidden from AI enemies while hunting for clues.
-- **Game Over**: If time runs out or detection reaches 100%.
-- **Win Condition**: Submit your report after finding all clues.
+- **Avoid detection**: Stay hidden from AI while hunting for clues.
+- **Game over**: Time runs out or detection reaches 100%.
+- **Win**: Submit your report after finding all clues.
 
-### Win Criteria
+#### Win criteria
+- **ELF Promotion (true win)**: both gift and list are correct.
+- **ELF Recognition (partial win)**: either gift or list is correct.
+- **ELF Demotion (loss)**: both gift and list are incorrect.
 
-- **ELF Promotion (True Win)**: Both gift and list are correct.
-- **ELF Recognition (Partial Win)**: Either gift or list is correct, but not both.
-- **ELF Demotion (Loss)**: Both gift and list are incorrect.
-
-### Controls
-
+#### Controls
 ![Control Schemes](README-img/control-scheme.png)
 
-- `WASD`: Character movement
-- `Mouse`: Move camera
-- `Toggle Q`: Crouch (harder for Family and Pets to see you)
-- `Spacebar`: Jump
-- `Shift`: Sprint
-- `Left Mouse Click`: Spread Christmas Cheer (distract enemies)
-- `Keypad E`: Dialogue with parents/pets, pick up clues
-- `Keypad 1`: Cast 1st magic ability
-- `Keypad 2`: Cast 2nd magic ability
-- `Tab`: Pause Game/Review Clues
-- `Keypad 3`: Jump to final report (once all clues are found).
+`WASD` move · `Mouse` camera · `Q` crouch · `Space` jump · `Shift` sprint · `Left click` Christmas Cheer ·
+`E` dialogue / pick up clues · `1` `2` magic abilities · `Tab` pause / review clues · `3` final report
 
-### Magic Abilities
-
+#### Magic abilities
 ![Magics](README-img/magic.png)
 
-- **Second Sight**: Cast vision to nearby toys for better surveillance.
-- **Morph**: Transform into a toy figure to hide.
-- **Shimmer**: Brief invisibility.
+- **Second Sight** — see through nearby toys. **Morph** — become a toy to hide. **Shimmer** — brief invisibility.
 
-### Tips for Gameplay
-
+#### Tips
 - Cheer smoke acts as a hiding spot while gathering clues.
 - Dialogue opportunities are marked with star icons above human and pet heads.
-- Second Sight objects are indicated by blue diamonds when using the ability.
-- Human and pet detection states are visualized by the radius at their feet.
+- Second Sight objects are indicated by blue diamonds.
+- Detection states are visualised by the radius at characters' feet.
 
----
+</details>
 
-### Credits
+## 🙌 Credits
 
-#### ABK Jam Team 7
+**Web remake** — Echo (Beili) Yin
 
-| Name              | Role                                              |
-| ----------------- | ------------------------------------------------- |
-| Shawn Wells       | Producer / Level Designer                         |
-| Mondae Atughonu   | Gameplay and AI Programming                       |
-| Echo (Beili) Yin  | Generalist Programmer                             |
-| Jonathan Librizzi | UI Engineer                                       |
-| Milton Clark      | Software Engineer                                 |
-| Sara Zorns        | Concept Artist, 2D Artist, and Narrative Designer |
-| Molly Carroll     | Environment Artist and 3D Modeler                 |
-| Lu Xu             | Opening Cinematic Artist                          |
-| Andre B           | Concept Artist                                    |
+**ABK Jam Team 7 (original)**
 
----
+| Name | Role |
+| --- | --- |
+| Shawn Wells | Producer / Level Designer |
+| Mondae Atughonu | Gameplay and AI Programming |
+| Echo (Beili) Yin | Generalist Programmer |
+| Jonathan Librizzi | UI Engineer |
+| Milton Clark | Software Engineer |
+| Sara Zorns | Concept Artist, 2D Artist, and Narrative Designer |
+| Molly Carroll | Environment Artist and 3D Modeler |
+| Lu Xu | Opening Cinematic Artist |
+| Andre B | Concept Artist |
 
-### License
+**Assets** — 3D models, particles, sound effects and jingles by [Kenney](https://kenney.nl) (CC0) ·
+public-domain carol melodies · fonts under the SIL Open Font License.
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## 📜 License
+
+Code is licensed under the MIT License — see [LICENSE](LICENSE). Kenney assets are CC0; licence files ship in
+[`web/public/assets/licenses`](web/public/assets/licenses).
+
+<p align="center"><sub>Made with 🎄, ❄️ and a suspicious amount of gingerbread.</sub></p>
