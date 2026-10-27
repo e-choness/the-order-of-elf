@@ -97,7 +97,7 @@ media-kit    press kit and the tools that render it
 ```
 
 The original Unity 2021.3 project lives on at the
-[`unity-original`](https://github.com/e-choness/the-order-of-elf/tree/unity-original) tag.
+[last Unity commit (`ed82f37`)](https://github.com/e-choness/the-order-of-elf/tree/ed82f37).
 
 Levels are plain data (`src/levels/*.ts`): rooms are integer rectangles, walls
 and openings are generated automatically, and `/#validate` checks reachability

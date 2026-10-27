@@ -207,7 +207,7 @@ their list goes to Santa or Krampus.
 <summary>Original game rules, controls and win criteria</summary>
 
 The Unity 2021.3 project (built with [Gold Player](https://github.com/Hertzole/gold-player)) has been retired from this
-repository — browse it any time at the [`unity-original`](https://github.com/e-choness/the-order-of-elf/tree/unity-original) tag.
+repository — browse it any time at the [last Unity commit (`ed82f37`)](https://github.com/e-choness/the-order-of-elf/tree/ed82f37).
 
 #### Core gameplay
 - **Objective**: Gather all Christmas clues located throughout the house before time runs out.
