@@ -24,7 +24,7 @@ npm run build      # static build in dist/ (relative paths — ready for itch.io
 npm run preview
 ```
 
-Requires Node 20.19+ / 22.12+. Play with keyboard and mouse in a desktop browser.
+Requires Node 22.12+ (Node 24 LTS recommended — see `.nvmrc`). Play with keyboard and mouse in a desktop browser.
 
 ## What’s in the remake
 

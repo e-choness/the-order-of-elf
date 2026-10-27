@@ -25,6 +25,7 @@
 
 <p align="center">
   <img alt="three.js" src="https://img.shields.io/github/package-json/dependency-version/e-choness/the-order-of-elf/three?filename=package.json&style=flat-square&logo=threedotjs&label=three.js&color=000000">
+  <img alt="Node 24" src="https://img.shields.io/badge/Node-24%20LTS-5FA04E?style=flat-square&logo=nodedotjs&logoColor=white">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white">
   <img alt="Vite" src="https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white">
   <img alt="WebGL 2" src="https://img.shields.io/badge/WebGL-2-990000?style=flat-square&logo=webgl&logoColor=white">
