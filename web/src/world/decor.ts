@@ -48,7 +48,7 @@ export function buildFireplace(x: number, z: number, rot: number, world: Physics
     l.rotation.z = Math.PI / 2 + lr;
   }
   // embers glow
-  const ember = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.25), new THREE.MeshStandardMaterial({ color: 0, emissive: 0xff5a1a, emissiveIntensity: 2.5 }));
+  const ember = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.25), new THREE.MeshStandardMaterial({ color: 0, emissive: 0xff5a1a, emissiveIntensity: 5 }));
   ember.rotation.x = -Math.PI / 2;
   ember.position.set(0, 0.04, 0);
   g.add(ember);

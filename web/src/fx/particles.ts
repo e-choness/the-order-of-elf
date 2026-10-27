@@ -20,6 +20,7 @@ void main() {
 
 const frag = /* glsl */ `
 uniform sampler2D uMap;
+uniform float uBoost;
 varying vec4 vColor;
 varying float vAngle;
 void main() {
@@ -29,7 +30,7 @@ void main() {
   vec4 t = texture2D(uMap, p);
   float a = t.a * vColor.a;
   if (a < 0.003) discard;
-  gl_FragColor = vec4(vColor.rgb * t.rgb, a);
+  gl_FragColor = vec4(vColor.rgb * t.rgb * uBoost, a);
   #include <colorspace_fragment>
 }`;
 
@@ -71,7 +72,7 @@ export class ParticleSystem {
   private geo: THREE.BufferGeometry;
   material: THREE.ShaderMaterial;
 
-  constructor(texture: string, max = 600, additive = true) {
+  constructor(texture: string | THREE.Texture, max = 600, additive = true, boost = 1) {
     this.max = max;
     this.pos = new Float32Array(max * 3);
     this.vel = new Float32Array(max * 3);
@@ -94,8 +95,9 @@ export class ParticleSystem {
     this.geo.setAttribute('aAngle', new THREE.BufferAttribute(this.angle, 1).setUsage(THREE.DynamicDrawUsage));
     this.material = new THREE.ShaderMaterial({
       uniforms: {
-        uMap: { value: loadTexture(`particles/${texture}.png`, false) },
+        uMap: { value: typeof texture === 'string' ? loadTexture(`particles/${texture}.png`, false) : texture },
         uScale: { value: window.innerHeight * 0.62 },
+        uBoost: { value: 1 },
       },
       vertexShader: vert,
       fragmentShader: frag,
@@ -103,6 +105,7 @@ export class ParticleSystem {
       depthWrite: false,
       blending: additive ? THREE.AdditiveBlending : THREE.NormalBlending,
     });
+    this.material.uniforms.uBoost.value = boost;
     this.points = new THREE.Points(this.geo, this.material);
     this.points.frustumCulled = false;
     this.points.renderOrder = 5;
@@ -176,8 +179,8 @@ export class ParticleSystem {
 /** All shared particle systems for a level. */
 export class FX {
   group = new THREE.Group();
-  fire = new ParticleSystem('flame_03', 500, true);
-  sparkle = new ParticleSystem('star_06', 900, true);
+  fire = new ParticleSystem(flameTexture(), 500, true, 3.2);
+  sparkle = new ParticleSystem('star_06', 900, true, 1.8);
   glitter = new ParticleSystem('star_04', 600, true);
   magic = new ParticleSystem('magic_02', 400, true);
   smoke = new ParticleSystem('smoke_04', 300, false);
@@ -206,4 +209,26 @@ export class FX {
     this.sparkle.emit({ pos, count, spread, life: [0.4, 1.1], size: [0.05, 0.14], endSize: 0.2, color: colors, gravity: 1.5, drag: 2.5, spin: 6 });
     this.glitter.emit({ pos, count: Math.floor(count / 2), spread: spread * 0.6, life: [0.6, 1.6], size: [0.03, 0.07], color: colors, gravity: 0.4, drag: 1.5 });
   }
+}
+
+/** Soft teardrop flame: white-hot core fading to orange, drawn once on a canvas. */
+function flameTexture(): THREE.Texture {
+  const c = document.createElement('canvas');
+  c.width = c.height = 64;
+  const g = c.getContext('2d')!;
+  const grd = g.createRadialGradient(32, 40, 2, 32, 36, 30);
+  grd.addColorStop(0, 'rgba(255,255,240,1)');
+  grd.addColorStop(0.25, 'rgba(255,230,160,0.9)');
+  grd.addColorStop(0.6, 'rgba(255,170,80,0.45)');
+  grd.addColorStop(1, 'rgba(255,120,40,0)');
+  g.fillStyle = grd;
+  g.beginPath();
+  g.moveTo(32, 2);
+  g.bezierCurveTo(46, 22, 58, 34, 52, 48);
+  g.bezierCurveTo(46, 62, 18, 62, 12, 48);
+  g.bezierCurveTo(6, 34, 18, 22, 32, 2);
+  g.fill();
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
 }

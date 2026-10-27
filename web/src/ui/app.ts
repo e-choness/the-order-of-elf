@@ -186,7 +186,7 @@ export class App {
           <div class="tagline"><b>E</b>lves <b>L</b>urking <b>F</b>estively</div>
         </div>
         <div class="menu">
-          <button class="btn primary" data-a="play"><span class="ico">🎄</span>${this.nextMission() ? 'Continue: ' + esc(this.nextMission()!.title) : 'Begin'}</button>
+          <button class="btn primary" data-a="play"><span class="ico">🎄</span>${this.playLabel()}</button>
           <button class="btn" data-a="missions"><span class="ico">🗺️</span>Missions</button>
           <button class="btn" data-a="manual"><span class="ico">📖</span>Field Manual</button>
           <button class="btn" data-a="settings"><span class="ico">⚙️</span>Settings</button>
@@ -200,13 +200,19 @@ export class App {
       const a = (e.target as HTMLElement).closest('[data-a]')?.getAttribute('data-a');
       if (!a) return;
       audio.ui('click');
-      if (a === 'play') this.showBriefing(this.nextMission() ?? LEVELS[0]);
+      if (a === 'play') { const n = this.nextMission(); if (n) this.showBriefing(n); else this.showMissions(); }
       if (a === 'missions') this.showMissions();
       if (a === 'manual') this.showManual(() => this.showTitle());
       if (a === 'settings') this.showSettings(() => this.showTitle());
       if (a === 'credits') this.showCredits();
     });
     this.setScreen('title', el);
+  }
+
+  private playLabel() {
+    const next = this.nextMission();
+    if (!Object.keys(save.missions).length) return 'Begin training';
+    return next ? `Continue: ${esc(next.title)}` : 'Replay a mission';
   }
 
   private nextMission(): LevelDef | null {

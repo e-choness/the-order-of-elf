@@ -170,20 +170,21 @@ export class LightSource {
       const f = 0.75 + 0.18 * Math.sin(this.t * 13) * Math.sin(this.t * 7.3) + 0.1 * Math.sin(this.t * 29);
       this.light.intensity = this.baseIntensity * f;
       this.emitAcc += dt;
-      while (this.emitAcc > 0.03) {
-        this.emitAcc -= 0.03;
+      while (this.emitAcc > 0.022) {
+        this.emitAcc -= 0.022;
+        const base = new THREE.Vector3(this.def.x + (Math.random() - 0.5) * 0.5, this.pos.y - 0.3, this.def.z - 0.12 + (Math.random() - 0.5) * 0.15);
         this.fx?.fire.emit({
-          pos: new THREE.Vector3(this.def.x, this.pos.y - 0.32, this.def.z),
-          posJitter: 0.35,
-          vel: new THREE.Vector3(0, 0.6, 0),
-          spread: 0.15,
-          life: [0.4, 0.8],
-          size: [0.18, 0.32],
-          endSize: 0.25,
-          color: [0xffa040, 0xff7a20, 0xffd080],
-          alpha: 0.9,
+          pos: base,
+          vel: new THREE.Vector3(0, 0.95, 0),
+          spread: 0.1,
+          life: [0.3, 0.6],
+          size: [0.14, 0.26],
+          endSize: 0.12,
+          color: [0xff9a30, 0xff6a10, 0xffc860, 0xff4a08],
+          alpha: 0.85,
           spin: 1.5,
         });
+        
         if (Math.random() < 0.06) {
           this.fx?.glitter.emit({ pos: new THREE.Vector3(this.def.x, this.pos.y - 0.2, this.def.z), posJitter: 0.3, vel: new THREE.Vector3(0, 1.2, 0), spread: 0.4, life: [0.6, 1.2], size: [0.015, 0.03], color: 0xffb060 });
         }

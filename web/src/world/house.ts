@@ -164,7 +164,7 @@ export function buildHouse(level: LevelDef, world: PhysicsWorld): HouseBuild {
   for (const r of level.rooms) {
     const fm = new THREE.MeshStandardMaterial({
       map: floorTexture(r.floor),
-      roughness: r.floor.startsWith('wood') ? 0.45 : r.floor.startsWith('tile') ? 0.25 : 0.95,
+      roughness: r.floor.startsWith('wood') ? 0.62 : r.floor.startsWith('tile') ? 0.3 : 0.95,
       metalness: 0,
     });
     const k = `floor:${r.floor}`;
@@ -353,7 +353,7 @@ export function buildHouse(level: LevelDef, world: PhysicsWorld): HouseBuild {
     new THREE.BoxGeometry(bx1 - bx0 + 0.3, 0.35, bz1 - bz0 + 0.3),
     new THREE.MeshStandardMaterial({ color: 0x6f6a66, roughness: 1 }),
   );
-  found.position.set((bx0 + bx1) / 2, -0.17, (bz0 + bz1) / 2);
+  found.position.set((bx0 + bx1) / 2, -0.19, (bz0 + bz1) / 2);
   found.receiveShadow = true;
   group.add(found);
 
