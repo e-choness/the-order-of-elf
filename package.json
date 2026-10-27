@@ -1,16 +1,25 @@
 {
-  "name": "order-of-elf-web",
+  "name": "the-order-of-elf",
   "private": true,
   "version": "2.0.0",
-  "description": "The Order of E.L.F. — a festive first-person stealth immersive sim for the web",
+  "description": "The Order of E.L.F. — a cosy Christmas stealth immersive sim for the browser",
+  "homepage": "https://echoness.itch.io/the-order-of-elf-remake",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/e-choness/the-order-of-elf.git"
+  },
+  "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "deploy:itch": "npm run build && butler push dist echoness/the-order-of-elf-remake:html5"
   },
-  "license": "MIT",
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.3.0",
     "@fontsource-variable/nunito": "^5.3.0",

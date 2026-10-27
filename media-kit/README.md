@@ -128,6 +128,6 @@ No need to ask — a link to the itch.io page is always appreciated.
 
 ### Regenerating the kit
 
-The tools in [`tools/`](tools/) re-render everything from the live game: run `npm run dev` in `web/`, then
+The tools in [`tools/`](tools/) re-render everything from the live game: run `npm run dev` at the repo root, then
 `node tools/capture-screenshots.mjs`, `node tools/capture-gif-frames.mjs <orbit|sneak>` (encode with ffmpeg) and
 `python3 tools/compose-art.py` for the covers, banners and icons.

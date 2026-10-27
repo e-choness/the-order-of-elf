@@ -1,0 +1,33 @@
+name: Release
+
+# Tag a version (git tag v2.1.0 && git push --tags) to publish a GitHub Release
+# with a zipped, ready-to-host build attached. deploy-itch.yml ships the same tag to itch.io.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Zip the build
+        run: cd dist && zip -qr "../the-order-of-elf-${GITHUB_REF_NAME}-web.zip" .
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: the-order-of-elf-*-web.zip
+          generate_release_notes: true
+          body: |
+            ▶ **Play in your browser:** https://echoness.itch.io/the-order-of-elf-remake
+
+            The attached zip is a self-contained static build — unzip and serve it from any web server.

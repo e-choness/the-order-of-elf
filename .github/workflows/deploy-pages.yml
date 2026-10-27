@@ -1,12 +1,13 @@
-name: Deploy web edition
+name: Deploy to GitHub Pages
 
-# Builds the browser remake in /web and publishes it to GitHub Pages.
-# Enable Pages in the repository settings (Source: GitHub Actions) to use it.
+# Optional mirror of the game on GitHub Pages (itch.io is the main home).
+# To enable: Settings → Pages → Source "GitHub Actions", then add a repository
+# variable ENABLE_PAGES = true (Settings → Secrets and variables → Actions → Variables).
 
 on:
   push:
     branches: [main]
-    paths: ['web/**', '.github/workflows/deploy-web.yml']
+    paths: ['src/**', 'public/**', 'index.html', 'package.json', 'package-lock.json', '.github/workflows/deploy-pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -20,22 +21,19 @@ concurrency:
 
 jobs:
   build:
+    if: vars.ENABLE_PAGES == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: web
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: web/package-lock.json
       - run: npm ci
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: web/dist
+          path: dist
 
   deploy:
     needs: build
