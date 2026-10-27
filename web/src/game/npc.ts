@@ -60,6 +60,8 @@ export class NPC {
   hitByCheer = 0;
   private sleepiness = 0;
   private rootY = 0;
+  private barkTimer = 0;
+  private alertTime = 0;
 
   constructor(def: NPCDef, private ctx: GameCtx) {
     this.def = def;
@@ -174,6 +176,14 @@ export class NPC {
   private nextActivity() {
     const acts = this.def.activities;
     if (!acts.length) return;
+    if (this.activityIdx < 0) {
+      // the first activity is authored, so missions open predictably
+      this.activityIdx = 0;
+      this.activity = acts[0];
+      this.goTo(new THREE.Vector3(acts[0].at[0], 0, acts[0].at[1]));
+      this.timer = -1;
+      return;
+    }
     let total = 0;
     for (const a of acts) total += a.weight ?? 1;
     let r = Math.random() * total;
@@ -198,7 +208,11 @@ export class NPC {
   }
 
   private arrived(eps = 0.25) {
-    return !this.goal || (this.pathIdx >= this.path.length && this.pos.distanceTo(this.goal) < eps + 0.4) || (this.goal && Math.hypot(this.pos.x - this.goal.x, this.pos.z - this.goal.z) < eps);
+    if (!this.goal) return true;
+    const d = Math.hypot(this.pos.x - this.goal.x, this.pos.z - this.goal.z);
+    if (d < eps) return true;
+    // path exhausted next to a seat / bed whose centre lies inside furniture
+    return this.pathIdx >= this.path.length && d < 1.7;
   }
 
   private followPath(dt: number, speed: number) {
@@ -241,7 +255,7 @@ export class NPC {
 
   /** Called ~10 Hz by the game. Returns visibility 0..1 of the player. */
   perceive(): number {
-    if (this.state === 'stunned' || this.befriended) return (this.seeing = 0);
+    if (this.state === 'stunned' || this.befriended || this.ctx.time < 3) return (this.seeing = 0);
     if (this.state === 'sleep' || this.dozing) return (this.seeing = 0);
     const p = this.ctx.player;
     const pv = this.ctx.playerVis;
@@ -355,6 +369,7 @@ export class NPC {
   private toAlert() {
     if (this.state === 'alert') return;
     this.state = 'alert';
+    this.alertTime = 0;
     this.suspicion = 1.2;
     this.spottedOnce = true;
     this.lastKnown.copy(this.ctx.player.pos);
@@ -381,7 +396,7 @@ export class NPC {
     // ---- suspicion integration
     if (this.state !== 'stunned' && this.state !== 'sleep' && !this.befriended) {
       if (vis > 0.02) {
-        const gain = this.state === 'alert' ? 3 : this.isPet ? 2.2 : 1.7;
+        const gain = this.state === 'alert' ? 3 : this.isPet ? 1.25 : 0.95;
         this.suspicion += vis * gain * dt;
         this.lookTarget = this.ctx.player.chest;
         if (this.suspicion > 0.28 && this.state !== 'alert' && this.state !== 'investigate') this.toSuspicious(this.ctx.player.pos);
@@ -466,6 +481,7 @@ export class NPC {
           if (!this.goal || this.goal.distanceTo(pl.pos) > 0.8) this.goTo(pl.pos);
         }
         if (this.isHuman && distToPlayer < 0.85 && vis > 0.05) this.ctx.onCaught(this);
+        if (this.isPet && distToPlayer < 1.2) { pose = 'alert'; this.faceToward(pl.pos, dt, 6); this.speed = 0; break; }
         if (!this.arrived(0.5)) this.followPath(dt, this.runSpeed);
         else {
           pose = 'alert';
@@ -475,7 +491,17 @@ export class NPC {
             this.say(this.isHuman ? 'Where did it go?' : '');
           }
         }
-        if (this.isPet && Math.random() < dt * 0.9) this.bark('alert');
+        if (this.isPet && this.barkTimer <= 0) { this.bark('alert'); this.barkTimer = 2.2 + Math.random(); }
+        this.barkTimer -= dt;
+        // pets get bored of a motionless elf
+        this.alertTime += dt;
+        if (this.isPet && this.alertTime > 10 && this.ctx.player.speed < 0.5) {
+          this.alertTime = 0;
+          this.suspicion = 0;
+          if (this.def.kind === 'cat') audio.animal('meow', this.body.headWorld(), 0.3);
+          this.resume();
+          break;
+        }
         if (this.def.kind === 'robot' && Math.random() < dt * 2) this.bark('alert');
         break;
       }
@@ -612,7 +638,8 @@ export class NPC {
     this.rootY += (bedY - this.rootY) * Math.min(1, dt * 6);
     this.body.root.position.y = this.rootY;
     this.body.root.rotation.y = this.heading;
-    this.body.update(dt, this.speed > 0.05 && (pose === 'walk' || pose === 'run') ? pose : pose === 'walk' || pose === 'run' ? 'stand' : pose, this.speed, this.headYaw, this.headPitch, time);
+    const seated = this.state === 'routine' && this.timer >= 0 && this.activity?.seatY != null && pose !== 'sleep';
+    this.body.update(dt, this.speed > 0.05 && (pose === 'walk' || pose === 'run') ? pose : pose === 'walk' || pose === 'run' ? 'stand' : pose, this.speed, this.headYaw, this.headPitch, time, seated || (this.state === 'converse' && false));
     this.updateCone(time);
   }
 

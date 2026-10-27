@@ -23,6 +23,7 @@ async function start() {
   const app = new App(root);
   (window as any).__app = app;
   (window as any).__THREE = await import('three');
+  (window as any).__LEVELS = (await import('./levels')).LEVELS;
   await app.boot();
 }
 

@@ -76,6 +76,18 @@ export async function validateLevel(id: string) {
     const b = d.axis === 'x' ? [d.x, d.z + off] : [d.x + off, d.z];
     if (!d.locked && (!nav.walkable(a[0], a[1]) || !nav.walkable(b[0], b[1]))) issues.push(`door (${d.x},${d.z}) blocked on one side`);
   }
+  // wall decor must not sit on a door or window opening
+  for (const d of def.decor ?? []) {
+    if (!['frame', 'poster', 'calendar', 'clock', 'wreath'].includes(d.kind)) continue; // paper snowflakes belong on windows
+    for (const o of [...def.doors.map((x) => ({ ...x, door: true })), ...def.windows.map((x) => ({ ...x, door: false }))]) {
+      const w = (o.width ?? 1) / 2 + 0.3;
+      const onLine = o.axis === 'x' ? Math.abs(d.z - o.z) < 0.2 && Math.abs(d.x - o.x) < w : Math.abs(d.x - o.x) < 0.2 && Math.abs(d.z - o.z) < w;
+      if (!onLine) continue;
+      const top = o.door ? 2.1 : (o.sill ?? 0.8) + (o.height ?? 1.3);
+      const bottom = o.door ? 0 : (o.sill ?? 0.8);
+      if (d.y > bottom - 0.3 && d.y < top + 0.25 && !(o.door && o.locked && d.kind === 'wreath')) issues.push(`decor ${d.kind} (${d.x},${d.y},${d.z}) overlaps ${o.door ? 'door' : 'window'} (${o.x},${o.z})`);
+    }
+  }
   // chimney reachable
   const [cx, , cz] = def.chimney;
   if (!nav.findPath(new THREE.Vector3(p.x, 0, p.z), new THREE.Vector3(cx, 0, cz + 0.5))) issues.push('chimney unreachable');

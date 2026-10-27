@@ -13,7 +13,7 @@ export interface Body {
   height: number;
   eyeHeight: number;
   headWorld(): THREE.Vector3;
-  update(dt: number, pose: Pose, speed: number, headYaw: number, headPitch: number, time: number): void;
+  update(dt: number, pose: Pose, speed: number, headYaw: number, headPitch: number, time: number, seated?: boolean): void;
   setSitHeight(y: number): void;
   flashlight?: THREE.SpotLight;
   /** materials to flash/outline */
@@ -97,14 +97,14 @@ async function buildHuman(def: NPCDef): Promise<Body> {
   // festive extras: santa hats for some, a phone, flashlight
   const hat = new THREE.Group();
   if (def.kind === 'kid' || def.kind === 'teen') {
-    const cone = new THREE.Mesh(new THREE.ConeGeometry(2.3, 4.5, 8), new THREE.MeshStandardMaterial({ color: 0xc0182c, roughness: 0.8 }));
-    cone.position.set(0, 18.2, -0.3);
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(1.9, 3.8, 8), new THREE.MeshStandardMaterial({ color: 0xc0182c, roughness: 0.8 }));
+    cone.position.set(0, 17.9, -0.3);
     cone.rotation.x = -0.25;
-    const rim = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.55, 6, 16), new THREE.MeshStandardMaterial({ color: 0xf8f4ee, roughness: 1 }));
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(1.95, 0.45, 6, 16), new THREE.MeshStandardMaterial({ color: 0xf8f4ee, roughness: 1 }));
     rim.rotation.x = Math.PI / 2;
     rim.position.set(0, 16.2, 0);
     const pom = new THREE.Mesh(new THREE.SphereGeometry(0.7, 8, 6), rim.material);
-    pom.position.set(0, 20.3, -1.1);
+    pom.position.set(0, 19.7, -1.0);
     hat.add(cone, rim, pom);
     hat.position.set(0, -12, 0);
     head.add(hat);
@@ -145,11 +145,11 @@ async function buildHuman(def: NPCDef): Promise<Body> {
       v.y += height * 0.06;
       return v;
     },
-    update(dt, pose, speed, headYaw, headPitch, time) {
+    update(dt, pose, speed, headYaw, headPitch, time, seated) {
       const moving = pose === 'walk' || pose === 'run';
       walkPhase += dt * speed * (def.kind === 'kid' ? 9 : 6.5);
       const swing = moving ? Math.min(1, speed / 1.2) * (pose === 'run' ? 0.95 : 0.6) : 0;
-      sitK = damp(sitK, pose === 'sit' || pose === 'tv' || pose === 'read' || pose === 'sitUp' ? 1 : 0, 6, dt);
+      sitK = damp(sitK, (seated && !moving && pose !== 'sleep' && pose !== 'lie') || pose === 'sit' || pose === 'tv' || pose === 'read' || pose === 'sitUp' ? 1 : 0, 6, dt);
       lieK = damp(lieK, pose === 'sleep' || pose === 'lie' ? 1 : 0, 4, dt);
       armRaise = damp(armRaise, pose === 'phone' ? 1 : pose === 'alert' ? 0.6 : 0, 6, dt);
       armFwd = damp(armFwd, pose === 'cook' || pose === 'wrap' || pose === 'read' || pose === 'snack' || pose === 'clean' ? 1 : 0, 6, dt);

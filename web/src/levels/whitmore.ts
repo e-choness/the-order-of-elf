@@ -168,13 +168,13 @@ export const whitmore: LevelDef = {
     { kind: 'stocking', x: 3.8, y: 1.05, z: 0.75, rot: 0, color: '#2f7d5b', label: 'MUM' },
     { kind: 'stocking', x: 4.35, y: 1.05, z: 0.75, rot: 0, color: '#3b5ba5', label: 'DAD' },
     { kind: 'wreath', x: 0.09, y: 1.6, z: 4, rot: 90 },
-    { kind: 'frame', x: 9.5, y: 1.6, z: 0.08, rot: 0 },
-    { kind: 'frame', x: 3.0, y: 1.6, z: 7.92, rot: 180 },
+    { kind: 'frame', x: 7.8, y: 1.6, z: 0.08, rot: 0 },
+    { kind: 'frame', x: 4.0, y: 1.6, z: 7.92, rot: 180 },
     { kind: 'frame', x: 12.5, y: 1.6, z: 6.08, rot: 0 },
     { kind: 'frame', x: 16.5, y: 1.6, z: 6.08, rot: 0 },
-    { kind: 'poster', x: 2.5, y: 1.6, z: 8.08, rot: 0, label: 'ROBOTS' },
+    { kind: 'poster', x: 1.2, y: 1.6, z: 8.08, rot: 0, label: 'ROBOTS' },
     { kind: 'poster', x: 9.92, y: 1.6, z: 10, rot: 270, label: 'KEEP OUT' },
-    { kind: 'clock', x: 9.5, y: 2.0, z: 5.92, rot: 180 },
+    { kind: 'clock', x: 11.0, y: 2.0, z: 5.92, rot: 180 },
     { kind: 'calendar', x: 16.92, y: 1.5, z: 4.6, rot: 270 },
     { kind: 'garland', x: 3.5, y: 2.45, z: 0.1, rot: 0 },
     { kind: 'snowflake', x: 7.5, y: 1.9, z: 13.93, rot: 180 },
@@ -202,7 +202,7 @@ export const whitmore: LevelDef = {
     },
     {
       id: 'raj', name: 'Mr. Whitmore', kind: 'adult', voice: 0.85,
-      skin: { base: 'manAlternative', shirt: '#7c2f35', pattern: 'stripes', patternColor: '#f3e6c8', pants: '#2b2433' },
+      skin: { base: 'soldier', shirt: '#7c2f35', pattern: 'stripes', patternColor: '#f3e6c8', pants: '#2b2433' },
       start: [15.6, 9.2],
       activities: [
         { at: [14.0, 12.75], face: 180, anim: 'read', min: 14, max: 22, weight: 2, seatY: 0.46 },
@@ -221,7 +221,7 @@ export const whitmore: LevelDef = {
     },
     {
       id: 'maya', name: 'Maya', kind: 'teen', voice: 1.35, sight: 0.75, hearing: 0.7,
-      skin: { base: 'womanAlternative', shirt: '#5a3a7a', pattern: 'stars', patternColor: '#ff8fa3', pants: '#2b2433', hair: '#1b1b1b' },
+      skin: { base: 'womanAlternative', shirt: '#5a3a7a', pattern: 'stars', patternColor: '#ff8fa3', pants: '#2b2433', hair: '#1b1b1b', skin: '#b98260' },
       start: [7.0, 9.4],
       activities: [
         { at: [6.25, 10.5], face: 270, anim: 'phone', min: 14, max: 22, weight: 3, seatY: 0.46 },
@@ -251,7 +251,7 @@ export const whitmore: LevelDef = {
     },
     {
       id: 'ollie', name: 'Ollie', kind: 'kid', voice: 1.7, asleep: true,
-      skin: { base: 'man', shirt: '#e8384b', pattern: 'stripes', patternColor: '#ffffff', pants: '#e8384b', hair: '#3a2416' },
+      skin: { base: 'man', shirt: '#e8384b', pattern: 'stripes', patternColor: '#ffffff', pants: '#e8384b', hair: '#1b1b1b', skin: '#b98260' },
       start: [0.65, 12.7],
       activities: [
         { at: [0.65, 12.75], face: 0, anim: 'sleep', min: 9999, max: 9999, seatY: 0.5 },
@@ -263,8 +263,8 @@ export const whitmore: LevelDef = {
       skin: { base: 'man', shirt: '#e0a050', pants: '#a86a28' },
       start: [9.5, 4.6],
       activities: [
+        { at: [9.5, 4.6], face: 0, anim: 'sit', min: 14, max: 20, weight: 1 },
         { at: [3.4, 1.55], face: 180, anim: 'lie', min: 15, max: 25, weight: 3 },
-        { at: [9.5, 4.6], face: 0, anim: 'sit', min: 6, max: 12, weight: 1 },
         { at: [2.6, 11.0], face: 0, anim: 'lie', min: 15, max: 25, weight: 2 },
         { at: [18.0, 5.0], face: 90, anim: 'sit', min: 8, max: 14, weight: 1 },
       ],

@@ -319,6 +319,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; font
 /* ------------------------------------------------------------ HUD */
 
 .hud { font-family: var(--font-ui); }
+.hud.modal .markers, .hud.modal .crosshair, .hud.modal .prompt, .hud.modal .hold-ring { display: none; }
 .hud > * { pointer-events: none; }
 .hud-tl { position: fixed; left: 24px; top: 20px; padding: 0.8rem 1.1rem; min-width: 250px; }
 .hud-tl .mission-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
@@ -357,6 +358,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; font
 .gem .stance.right { text-align: left; }
 .gem .stance.left { text-align: right; }
 
+.gem .noise { position: absolute; left: 50%; top: -18px; transform: translateX(-50%); display: flex; gap: 3px; align-items: flex-end; }
+.gem .noise i { width: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.12); transition: background 0.1s; }
+.gem .noise i:nth-child(1) { height: 4px; } .gem .noise i:nth-child(2) { height: 6px; } .gem .noise i:nth-child(3) { height: 8px; } .gem .noise i:nth-child(4) { height: 10px; } .gem .noise i:nth-child(5) { height: 12px; }
+.gem .noise i.on { background: var(--frost); box-shadow: 0 0 6px var(--frost); }
+.gem .noise i:nth-child(n+4).on { background: #ffc861; box-shadow: 0 0 6px #ffc861; }
+.gem .noise span { display: none; }
 .crosshair { position: fixed; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: rgba(255, 255, 255, 0.75); box-shadow: 0 0 6px rgba(0, 0, 0, 0.7); transition: all 0.15s; }
 .crosshair.focus { width: 18px; height: 18px; margin: -9px; background: transparent; border: 2px solid var(--gold-2); box-shadow: 0 0 12px rgba(232, 192, 98, 0.8); }
 .prompt { position: fixed; left: 50%; top: calc(50% + 34px); transform: translateX(-50%); padding: 0.45rem 0.9rem; border-radius: 999px; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 0.6rem; white-space: nowrap; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); }
@@ -434,7 +441,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; font
 .vignette-hide.on { opacity: 1; }
 .vignette-hide.closet { background: repeating-linear-gradient(180deg, rgba(10, 6, 4, 0.92) 0 26px, transparent 26px 40px), radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.85) 80%); }
 .vignette-hide.underBed { background: linear-gradient(180deg, rgba(10, 6, 4, 0.95) 0 28%, transparent 40%), radial-gradient(ellipse at center 70%, transparent 30%, rgba(0, 0, 0, 0.85) 80%); }
-.vignette-hide.curtain { background: repeating-linear-gradient(90deg, rgba(120, 20, 30, 0.55) 0 40px, rgba(80, 10, 20, 0.7) 40px 80px), radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.7) 80%); }
+.vignette-hide.curtain { background: linear-gradient(90deg, rgba(90, 14, 24, 0.92) 0 14%, rgba(90, 14, 24, 0.25) 30% 70%, rgba(90, 14, 24, 0.92) 86%), repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 30px, transparent 30px 60px); }
 .vignette-hide.tree { background: radial-gradient(ellipse at center 60%, transparent 25%, rgba(10, 40, 25, 0.85) 75%); }
 .vignette-hide.box { background: linear-gradient(180deg, #6e4b2a 0 38%, transparent 38% 52%, #6e4b2a 52%); }
 .vignette-hide .lbl { position: absolute; left: 50%; bottom: 90px; transform: translateX(-50%); font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.8rem; color: var(--frost); text-shadow: 0 2px 8px #000; }
@@ -615,7 +622,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; font
 }
 .letter.krampus { background: linear-gradient(180deg, #2a1a1a, #1a0f10); color: #f0d9c9; border: 1px solid #5a2a2a; }
 .letter .sig { text-align: right; margin-top: 1rem; font-size: 1.8rem; }
-.letter .seal { position: absolute; bottom: -18px; left: 30px; width: 64px; height: 64px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #e8475a, #8a1525); display: grid; place-items: center; color: #ffd9a8; font-family: var(--font-display); font-weight: 900; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35); transform: rotate(-12deg); }
+.letter .seal { position: absolute; top: -20px; right: 26px; width: 64px; height: 64px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #e8475a, #8a1525); display: grid; place-items: center; color: #ffd9a8; font-family: var(--font-display); font-weight: 900; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35); transform: rotate(-12deg); }
 .results-actions { grid-column: 1 / -1; display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
 
 /* ------------------------------------------------------------ manual / credits */

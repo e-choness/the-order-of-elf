@@ -56,8 +56,8 @@ export class App {
     this.renderer = new Renderer(root);
     this.input = new Input(this.renderer.canvas);
     initAudio();
-    this.overlays = new Overlays(root, this.input);
     this.hud = new HudView(root);
+    this.overlays = new Overlays(root, this.input);
     this.hud.show(false);
     this.ui = h('div', { class: 'layer ui' });
     root.append(this.ui);
@@ -66,6 +66,12 @@ export class App {
     this.fadeEl = h('div', { class: 'fade-black' });
     root.append(this.fadeEl);
     this.input.onLockChange = (locked) => this.onLockChange(locked);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && this.game && this.screen === 'play' && !this.game.ended) this.openPause();
+    });
+    if (matchMedia('(pointer: coarse)').matches && !matchMedia('(pointer: fine)').matches) {
+      root.append(h('div', { class: 'toast glass', style: 'position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:20;max-width:90vw' }, 'The Order of E.L.F. is played with a keyboard and mouse — hop on a computer for the full sneak!'));
+    }
     try {
       const l = JSON.parse(localStorage.getItem('elf.loadout') ?? 'null');
       if (Array.isArray(l) && l.length === 2) this.loadout = l;
@@ -522,6 +528,9 @@ export class App {
 
   private onEnd(r: MissionResult) {
     const g = this.game!;
+    this.overlays.forceClose();
+    this.clickToPlay?.remove();
+    this.clickToPlay = null;
     this.input.unlock();
     this.hud.show(false);
     const def = g.def;

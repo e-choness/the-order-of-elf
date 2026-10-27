@@ -79,6 +79,8 @@ export class Game implements GameCtx {
   ended = false;
   paused = false;
   private convoDone = new Set<string>();
+  private convoNext = new Map<string, number>();
+  private convoPlays = new Map<string, number>();
   private activeConvo: { def: LevelDef['conversations'][number]; line: number; t: number; heard: boolean } | null = null;
   stats = { spotted: 0, dusted: 0, cheer: 0, spells: 0, cookies: 0, broken: 0, lightsOut: 0, maxDetection: 0, pets: 0 };
   private anims: { f: (t: number) => void; t: number; dur: number }[] = [];
@@ -92,6 +94,7 @@ export class Game implements GameCtx {
   private wornBox: HideSpot | null = null;
   private boxSince = 0;
   private moonStrength = 0.35;
+  private lastChime = -1;
 
   constructor(
     public def: LevelDef,
@@ -136,6 +139,8 @@ export class Game implements GameCtx {
     const [cx, , cz] = def.chimney;
     this.fx.smoke.emit({ pos: new THREE.Vector3(cx, 0.6, cz), count: 30, posJitter: 0.8, spread: 1.2, life: [1.2, 2.2], size: [0.4, 0.8], endSize: 2.5, color: 0x3a3330, alpha: 0.7 });
     this.fx.burst(new THREE.Vector3(cx, 0.8, cz), [0xffd36e, 0xffffff], 40, 2);
+    // the soot cloud from the chimney hides the elf for a few seconds
+    this.addCheerCloud(new THREE.Vector3(def.player.x, 0, def.player.z), 7);
     onProgress(1, 'Ready');
   }
 
@@ -185,8 +190,7 @@ export class Game implements GameCtx {
   noise(pos: THREE.Vector3, radius: number, kind: NoiseKind, byPlayer = false, source?: string) {
     const n: Noise = { pos, radius, kind, byPlayer, t: this.time, source };
     for (const npc of this.npcs) npc.hear(n);
-    if (byPlayer && radius > 2.5) this.hud.update(this, 0);
-    this.lastNoise = { r: radius, t: this.time };
+    if (byPlayer) this.lastNoise = { r: radius, t: this.time };
   }
   lastNoise = { r: 0, t: -10 };
 
@@ -318,6 +322,7 @@ export class Game implements GameCtx {
       this.stats.pets++;
       audio.animal(n.def.kind === 'dog' ? 'bark' : 'purr', n.body.headWorld(), 0.4);
       this.fx.burst(n.body.headWorld(), [0xff8fa3, 0xffffff, 0xffd36e], 30, 1.2);
+      this.fx.hearts.emit({ pos: n.body.headWorld(), count: 8, posJitter: 0.3, vel: new THREE.Vector3(0, 0.6, 0), spread: 0.4, life: [1.2, 2], size: [0.08, 0.14], color: [0xff6b8a, 0xff8fa3], spin: 0.5 });
       this.subtitle({ name: n.name, pos: n.pos }, n.def.kind === 'dog' ? '*happy tail thumping* You’re my best friend now. I won’t bark at you, promise.' : '*purrs* Fine. You may live.', 5);
       return;
     }
@@ -377,6 +382,8 @@ export class Game implements GameCtx {
     }
     this.hiding = h;
     this.hideReturn = this.player.pos.clone();
+    // the elf's body is now at the hiding spot (for hearing, smell and bumping)
+    this.player.pos.set(h.anchor.x, this.player.pos.y, h.anchor.z);
     this.hideYaw = h.lookYaw;
     this.hidePitch = 0;
     this.playerState.hiddenSpot = true;
@@ -457,6 +464,12 @@ export class Game implements GameCtx {
     if (inp.wasPressed('Digit3') && this.found.length >= this.def.clues.length && this.canAct()) this.openReport();
 
     this.player.update(dt, canMove);
+    if (this.intro > 0) {
+      // arriving down the chimney: the camera drops out of the flue
+      const k = Math.max(0, this.intro - 0.3) / 1.9;
+      this.player.camera.position.y += k * k * 1.6;
+      if (Math.random() < dt * 20) this.fx.smoke.emit({ pos: this.player.camera.position.clone().add(new THREE.Vector3(0, 0.3, 0)), posJitter: 0.5, vel: new THREE.Vector3(0, -0.4, 0), spread: 0.3, life: [0.6, 1.2], size: [0.3, 0.5], endSize: 2, color: 0x2a2420, alpha: 0.5 });
+    }
     if (this.hiding) {
       const cam = this.player.camera;
       cam.position.copy(this.hiding.anchor);
@@ -553,6 +566,17 @@ export class Game implements GameCtx {
       }
     }
 
+    // grandfather-clock chimes on the half hour
+    const [ch, cm] = this.clock();
+    const slot = ch * 2 + (cm >= 30 ? 1 : 0);
+    if (this.lastChime < 0) this.lastChime = slot;
+    if (slot !== this.lastChime) {
+      this.lastChime = slot;
+      const n = cm >= 30 ? 1 : ((ch % 12) || 12);
+      for (let i = 0; i < Math.min(n, 12); i++) window.setTimeout(() => audio.play('sfx/bong', { volume: 0.35, rate: 0.8 }), i * 900);
+      const left = this.def.minutes * 60 - this.time;
+      if (left < this.def.minutes * 60 * 0.3) this.toast(`🕰️ ${ch % 12 || 12}:${String(cm).padStart(2, '0')} — Santa’s sleigh is getting closer!`, 'gold');
+    }
     // time limit
     if (this.time >= this.def.minutes * 60 && !this.ended) this.end('timeout');
 
@@ -647,7 +671,7 @@ export class Game implements GameCtx {
       }
       this.lightLevel = lightLevelAt(this.player.chest, this.level.lights, this.world, { dir: this.level.env.moonDir, strength: this.moonStrength }, extra);
     }
-    let v = THREE.MathUtils.clamp((this.lightLevel - 0.06) / 0.55, 0.06, 1);
+    let v = THREE.MathUtils.clamp((this.lightLevel - 0.08) / 0.7, 0.06, 1);
     if (this.player.crouched) v *= 0.55;
     const sp = this.player.speed;
     v *= sp < 0.2 ? 0.75 : this.player.sprinting ? 1.35 : 1;
@@ -673,7 +697,8 @@ export class Game implements GameCtx {
   private updateDetection(dt: number) {
     let rising = 0;
     for (const n of this.npcs) {
-      if ((n.state === 'alert' || n.state === 'search') && n.seeing > 0.05) rising = Math.max(rising, n.seeing * (n.isHuman ? 1 : 0.6));
+      // only people fill the meter — pets and robots raise the alarm instead
+      if (n.isHuman && (n.state === 'alert' || n.state === 'search') && n.seeing > 0.05) rising = Math.max(rising, n.seeing);
     }
     if (rising > 0) this.detection = Math.min(100, this.detection + rising * 26 * dt);
     else this.detection = Math.max(0, this.detection - (this.npcs.some((n) => n.state === 'alert' || n.state === 'search') ? 1 : 4) * dt);
@@ -713,7 +738,7 @@ export class Game implements GameCtx {
     const c = this.activeConvo;
     if (!c) {
       for (const def of this.def.conversations) {
-        if (this.convoDone.has(def.id) || this.time < def.at) continue;
+        if (this.convoDone.has(def.id) || this.time < (this.convoNext.get(def.id) ?? def.at)) continue;
         const who = def.who.map((id) => this.npcs.find((n) => n.def.id === id)).filter(Boolean) as NPC[];
         if (who.some((n) => !n.calm || n.state === 'sleep')) continue;
         this.convoDone.add(def.id);
@@ -737,7 +762,7 @@ export class Game implements GameCtx {
       for (const n of who) if (n.state === 'converse') n.resume();
       this.activeConvo = null;
       this.convoDone.delete(c.def.id); // try again later
-      c.def.at = this.time + 40;
+      this.convoNext.set(c.def.id, this.time + 40);
       return;
     }
     const gathered = who.every((n) => n.convoSpot && n.pos.distanceTo(n.convoSpot) < 0.6);
@@ -755,9 +780,13 @@ export class Game implements GameCtx {
           const clue = this.def.clues.find((x) => x.id === c.def.clue);
           if (clue) this.foundClue(clue);
         } else if (c.def.clue && !c.heard) {
-          // missed it — they’ll talk about it again later
-          this.convoDone.delete(c.def.id);
-          c.def.at = this.time + 75;
+          // missed it — they’ll talk about it again later (a couple of times)
+          const plays = (this.convoPlays.get(c.def.id) ?? 0) + 1;
+          this.convoPlays.set(c.def.id, plays);
+          if (plays < 3) {
+            this.convoDone.delete(c.def.id);
+            this.convoNext.set(c.def.id, this.time + 110);
+          }
         }
         this.activeConvo = null;
         return;

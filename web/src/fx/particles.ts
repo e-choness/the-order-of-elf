@@ -95,7 +95,7 @@ export class ParticleSystem {
     this.material = new THREE.ShaderMaterial({
       uniforms: {
         uMap: { value: loadTexture(`particles/${texture}.png`, false) },
-        uScale: { value: window.innerHeight * 0.5 },
+        uScale: { value: window.innerHeight * 0.62 },
       },
       vertexShader: vert,
       fragmentShader: frag,
@@ -106,7 +106,7 @@ export class ParticleSystem {
     this.points = new THREE.Points(this.geo, this.material);
     this.points.frustumCulled = false;
     this.points.renderOrder = 5;
-    window.addEventListener('resize', () => { this.material.uniforms.uScale.value = window.innerHeight * 0.5; });
+    window.addEventListener('resize', () => { this.material.uniforms.uScale.value = window.innerHeight * 0.62; });
   }
 
   emit(o: EmitOpts) {
@@ -163,7 +163,7 @@ export class ParticleSystem {
       const fi = this.fadeIn[i];
       const a = t < fi ? t / fi : 1 - (t - fi) / (1 - fi);
       this.col[i * 4 + 3] = Math.max(0, a) * this.alpha0[i];
-      this.size[i] = this.baseSize[i] * (1 + (this.endSize[i] - 1) * t) * 100;
+      this.size[i] = this.baseSize[i] * (1 + (this.endSize[i] - 1) * t);
       this.angle[i] += this.spin[i] * dt;
     }
     this.geo.attributes.position.needsUpdate = true;
@@ -178,15 +178,16 @@ export class FX {
   group = new THREE.Group();
   fire = new ParticleSystem('flame_03', 500, true);
   sparkle = new ParticleSystem('star_06', 900, true);
-  glitter = new ParticleSystem('spark_04', 600, true);
+  glitter = new ParticleSystem('star_04', 600, true);
   magic = new ParticleSystem('magic_02', 400, true);
   smoke = new ParticleSystem('smoke_04', 300, false);
   cheer = new ParticleSystem('twirl_02', 300, true);
-  zzz = new ParticleSystem('symbol_01', 60, false);
-  light = new ParticleSystem('light_01', 200, true);
+  zzz = new ParticleSystem('circle_05', 80, true);
+  hearts = new ParticleSystem('symbol_01', 60, false);
+  light = new ParticleSystem('star_07', 200, true);
 
   constructor() {
-    for (const s of [this.smoke, this.fire, this.magic, this.cheer, this.sparkle, this.glitter, this.light, this.zzz]) this.group.add(s.points);
+    for (const s of [this.smoke, this.fire, this.magic, this.cheer, this.sparkle, this.glitter, this.light, this.zzz, this.hearts]) this.group.add(s.points);
   }
 
   update(dt: number) {
@@ -197,6 +198,7 @@ export class FX {
     this.smoke.update(dt);
     this.cheer.update(dt);
     this.zzz.update(dt);
+    this.hearts.update(dt);
     this.light.update(dt);
   }
 

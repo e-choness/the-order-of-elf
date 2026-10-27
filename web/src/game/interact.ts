@@ -146,7 +146,10 @@ export class ContainerClue extends Interactable {
       const s = c.source as Extract<ClueDef['source'], { kind: 'container' }>;
       let obj: THREE.Object3D | undefined;
       if (s.model) obj = s.model.startsWith('special/') ? specialModel(s.model) : makeProp({ m: s.model, x: 0, z: 0 });
-      window.setTimeout(() => g.ui.inspect({ title: c.title, text: s.inspect, object: obj, category: c.category }, () => g.foundClue(c)), 350);
+      window.setTimeout(() => {
+        if (g.ended) return;
+        g.ui.inspect({ title: c.title, text: s.inspect, object: obj, category: c.category }, () => g.foundClue(c));
+      }, 350);
     } else {
       g.toast('Nothing but socks and tinsel.', 'muted');
     }

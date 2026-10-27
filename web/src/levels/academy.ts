@@ -79,7 +79,7 @@ export const academy: LevelDef = {
     { kind: 'poster', x: 0.09, y: 1.6, z: 2.0, rot: 90, label: 'STEALTH' },
     { kind: 'clock', x: 5, y: 1.95, z: 5.08, rot: 0 },
     { kind: 'garland', x: 3.4, y: 2.45, z: 0.1, rot: 0 },
-    { kind: 'frame', x: 7.5, y: 1.6, z: 0.08, rot: 0 },
+    { kind: 'frame', x: 9.3, y: 1.6, z: 0.08, rot: 0 },
     { kind: 'snowflake', x: 5, y: 1.9, z: 7.92, rot: 180 },
   ],
   npcs: [

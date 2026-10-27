@@ -45,6 +45,7 @@ export class HudView implements Hud {
         <div class="stance left">Standing</div>
         <div class="star">${STAR_SVG}</div>
         <div class="stance right">Dark</div>
+        <div class="noise"><i></i><i></i><i></i><i></i><i></i><span>noise</span></div>
       </div>
       <div class="slots">
         <div class="orbs">
@@ -62,7 +63,7 @@ export class HudView implements Hud {
       detLabel: q('.detect .label'), detBar: q('.detect .meter span'),
       cross: q('.crosshair'), ring: q('.hold-ring circle'), ringSvg: q('.hold-ring'), prompt: q('.prompt'),
       hint: q('.hint'), hintTxt: q('.hint .txt'),
-      star: q('.gem .star'), stanceL: q('.gem .stance.left'), stanceR: q('.gem .stance.right'),
+      star: q('.gem .star'), stanceL: q('.gem .stance.left'), stanceR: q('.gem .stance.right'), noise: q('.gem .noise'),
       magic: q('.orbs .magic'), cheer: q('.orbs .cheer'), s0: q('.slot.s0'), s1: q('.slot.s1'),
     });
     this.subs = q('.subtitles');
@@ -95,6 +96,7 @@ export class HudView implements Hud {
 
   update(g: Game, _dt: number) {
     if (!g.player) return;
+    this.root.classList.toggle('modal', g.ui.isModalOpen());
     const [hh, mm] = g.clock();
     const ampm = hh >= 12 && hh < 24 ? 'PM' : 'AM';
     const h12 = hh % 12 === 0 ? 12 : hh % 12;
@@ -136,6 +138,11 @@ export class HudView implements Hud {
     this.els.stanceL.textContent = g.playerState.inBox ? 'In a box' : g.hiding ? 'Hiding' : g.player.crouched ? 'Crouched' : g.player.sprinting ? 'Sprinting' : 'Standing';
     this.els.stanceR.textContent = g.playerState.invisible ? 'Invisible' : v < 0.15 ? 'Shadowed' : v < 0.45 ? 'Dim' : v < 0.75 ? 'Lit' : 'Bright';
 
+    // noise meter: how far your last sound carried
+    const age = g.time - g.lastNoise.t;
+    const loud = age < 1.2 ? Math.min(1, g.lastNoise.r / 9) * (1 - age / 1.2) : 0;
+    const bars = this.els.noise.querySelectorAll('i');
+    bars.forEach((b, i) => b.classList.toggle('on', loud > i / 5 + 0.02));
     // slots / orbs
     const ab = g.abilities;
     const orbs = this.els.magic.children;
@@ -241,10 +248,9 @@ export class HudView implements Hud {
         let dx = pr.x - cx, dy = pr.y - cy;
         if (pr.behind) { dx = -dx; dy = -dy; }
         const a = Math.atan2(dy, dx);
-        const r = Math.min(cx, cy) * 0.82;
         el.className = 'marker';
-        el.style.left = `${cx + Math.cos(a) * r}px`;
-        el.style.top = `${cy + Math.sin(a) * r}px`;
+        el.style.left = `${cx + Math.cos(a) * cx * 0.88}px`;
+        el.style.top = `${cy + Math.sin(a) * cy * 0.8}px`;
         el.innerHTML = `<div class="edge ${n.state === 'alert' ? 'alert' : ''}" style="transform: rotate(${a + Math.PI / 2}rad)"></div>`;
       } else {
         el.innerHTML = '';

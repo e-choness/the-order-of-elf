@@ -138,7 +138,7 @@ export const frostbrook: LevelDef = {
     { kind: 'stocking', x: 0.8, y: 1.05, z: 3.0, rot: 90, color: '#2f7d5b', label: 'MAMMA' },
     { kind: 'stocking', x: 0.8, y: 1.05, z: 3.6, rot: 90, color: '#3b5ba5', label: 'BO' },
     { kind: 'wreath', x: 9.5, y: 1.6, z: 0.09, rot: 0 },
-    { kind: 'frame', x: 6.5, y: 1.55, z: 5.92, rot: 180 },
+    { kind: 'frame', x: 4.6, y: 1.55, z: 5.92, rot: 180 },
     { kind: 'frame', x: 12.5, y: 1.6, z: 0.08, rot: 0 },
     { kind: 'poster', x: 0.08, y: 1.6, z: 9.0, rot: 90, label: 'COSMOS' },
     { kind: 'clock', x: 3.0, y: 1.95, z: 5.92, rot: 180 },
@@ -167,7 +167,7 @@ export const frostbrook: LevelDef = {
     },
     {
       id: 'bo', name: 'Grandpa Bo', kind: 'elder', voice: 0.75, flashlight: true, sight: 1.1, speed: 0.9,
-      skin: { base: 'man', shirt: '#7a3b34', pattern: 'stripes', patternColor: '#f3e6c8', pants: '#556b8a', hair: '#e8e8e8' },
+      skin: { base: 'adventurer', shirt: '#7a3b34', pattern: 'stripes', patternColor: '#f3e6c8', pants: '#556b8a', hair: '#e8e8e8' },
       start: [12.2, 2.5],
       activities: [
         { at: [13.2, 1.2], face: 200, anim: 'read', min: 12, max: 20, weight: 2, seatY: 0.45 },
@@ -187,7 +187,7 @@ export const frostbrook: LevelDef = {
     },
     {
       id: 'theo', name: 'Theo', kind: 'kid', voice: 1.45, hearing: 1.2,
-      skin: { base: 'adventurer', shirt: '#3b5ba5', pattern: 'stars', patternColor: '#ffe38a', pants: '#3b5ba5', hair: '#e6c27a' },
+      skin: { base: 'man', shirt: '#3b5ba5', pattern: 'stars', patternColor: '#ffe38a', pants: '#3b5ba5', hair: '#e6c27a' },
       start: [0.75, 10.8],
       activities: [
         { at: [0.75, 10.9], face: 0, anim: 'sleep', min: 14, max: 24, weight: 3, seatY: 0.5 },
@@ -206,11 +206,11 @@ export const frostbrook: LevelDef = {
     {
       id: 'biscuit', name: 'Biscuit', kind: 'dog', voice: 1, smell: 2.4, raisesAlarm: true, treat: 'treat', sight: 1,
       skin: { base: 'man', shirt: '#c48a4a', pants: '#7a5230' },
-      start: [1.5, 2.2],
+      start: [9.5, 4.5],
       activities: [
+        { at: [9.5, 4.8], face: 90, anim: 'sniff', min: 12, max: 18, weight: 1 },
         { at: [1.5, 3.0], face: 270, anim: 'lie', min: 18, max: 30, weight: 3 },
         { at: [6.5, 1.5], face: 180, anim: 'sniff', min: 5, max: 9, weight: 2 },
-        { at: [9.5, 4.8], face: 90, anim: 'sniff', min: 5, max: 9, weight: 1 },
         { at: [1.8, 9.6], face: 0, anim: 'lie', min: 12, max: 20, weight: 2 },
       ],
       talk: [

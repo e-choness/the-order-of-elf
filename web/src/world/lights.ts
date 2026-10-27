@@ -12,7 +12,7 @@ const DEFAULTS: Record<LightDef['kind'], { color: string; intensity: number; ran
   ceiling: { color: '#ffe2b8', intensity: 7, range: 7, y: 2.15, model: 'furniture/lampSquareCeiling' },
   wallLamp: { color: '#ffc77a', intensity: 3.5, range: 4.5, y: 1.7, model: 'furniture/lampWall' },
   tree: { color: '#ffd9a8', intensity: 4, range: 5.5, y: 1.2 },
-  fire: { color: '#ff8a3c', intensity: 9, range: 7.5, y: 0.5 },
+  fire: { color: '#ff8a3c', intensity: 9, range: 6.5, y: 0.5 },
   candle: { color: '#ffb35c', intensity: 1.4, range: 2.8, y: 0.15 },
   tv: { color: '#8fb8ff', intensity: 3, range: 5, y: 0.9 },
   nightlight: { color: '#9fd0ff', intensity: 1.6, range: 3.2, y: 0.3 },
@@ -111,8 +111,8 @@ export class LightSource {
 
   private buildTreeLights(parent: THREE.Object3D) {
     const n = 90;
-    const geo = new THREE.SphereGeometry(0.022, 8, 6);
-    const mat = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffffff, emissiveIntensity: 3, toneMapped: true });
+    const geo = new THREE.SphereGeometry(0.015, 8, 6);
+    const mat = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffffff, emissiveIntensity: 2, toneMapped: true });
     const inst = new THREE.InstancedMesh(geo, mat, n);
     const palette = ['#ff4d5e', '#ffd166', '#06d6a0', '#4cc9f0', '#f72585', '#ffffff'].map((c) => new THREE.Color(c));
     const m = new THREE.Matrix4();
@@ -141,8 +141,8 @@ export class LightSource {
   /** visual intensity factor 0..1 */
   private apply(k: number) {
     const on = this.on || this.motionTimer > 0;
+    // keep the light in the scene (constant light count = no shader recompiles)
     this.light.intensity = on ? this.baseIntensity * k : 0;
-    this.light.visible = on;
     for (const g of this.glow) {
       const mats = Array.isArray(g.material) ? g.material : [g.material];
       for (const mm of mats as THREE.MeshStandardMaterial[]) {
@@ -204,7 +204,7 @@ export class LightSource {
         inst.setColorAt(i, c);
       }
       inst.instanceColor!.needsUpdate = true;
-      (inst.material as THREE.MeshStandardMaterial).emissiveIntensity = 3;
+      (inst.material as THREE.MeshStandardMaterial).emissiveIntensity = 2;
       this.light.intensity = this.baseIntensity * (0.85 + 0.15 * Math.sin(time * 1.3));
     }
   }
@@ -215,7 +215,7 @@ export class LightSource {
     const d = this.pos.distanceTo(p);
     if (d > this.range) return 0;
     const f = 1 - d / this.range;
-    return f * f * (this.light.intensity / 5);
+    return Math.pow(f, 2.6) * (this.light.intensity / 5);
   }
 }
 
