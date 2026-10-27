@@ -15,20 +15,22 @@
   <a href="https://github.com/e-choness/the-order-of-elf/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/e-choness/the-order-of-elf?style=flat-square&logo=github&color=E8C062"></a>
   <a href="https://github.com/e-choness/the-order-of-elf/commits"><img alt="Last commit" src="https://img.shields.io/github/last-commit/e-choness/the-order-of-elf?style=flat-square&color=C0283B"></a>
   <a href="https://github.com/e-choness/the-order-of-elf/graphs/commit-activity"><img alt="Commit activity" src="https://img.shields.io/github/commit-activity/m/e-choness/the-order-of-elf?style=flat-square&color=1F5A45"></a>
-  <a href="https://github.com/e-choness/the-order-of-elf/actions/workflows/deploy-web.yml"><img alt="Web build" src="https://img.shields.io/github/actions/workflow/status/e-choness/the-order-of-elf/deploy-web.yml?style=flat-square&label=web%20build"></a>
-  <img alt="Version" src="https://img.shields.io/github/package-json/v/e-choness/the-order-of-elf?filename=web%2Fpackage.json&style=flat-square&label=web%20edition&color=BFE3FF">
+  <a href="https://github.com/e-choness/the-order-of-elf/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/e-choness/the-order-of-elf/ci.yml?style=flat-square&label=build&logo=githubactions&logoColor=white"></a>
+  <a href="https://github.com/e-choness/the-order-of-elf/actions/workflows/deploy-itch.yml"><img alt="itch.io deploy" src="https://img.shields.io/github/actions/workflow/status/e-choness/the-order-of-elf/deploy-itch.yml?style=flat-square&label=itch.io%20deploy&logo=itchdotio&logoColor=white"></a>
+  <a href="https://github.com/e-choness/the-order-of-elf/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/e-choness/the-order-of-elf?style=flat-square&color=BFE3FF&label=release&include_prereleases"></a>
+  <img alt="Version" src="https://img.shields.io/github/package-json/v/e-choness/the-order-of-elf?style=flat-square&label=version&color=BFE3FF">
   <img alt="Repo size" src="https://img.shields.io/github/repo-size/e-choness/the-order-of-elf?style=flat-square&color=8F97B3">
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/e-choness/the-order-of-elf?style=flat-square&color=B18CFF"></a>
 </p>
 
 <p align="center">
-  <img alt="three.js" src="https://img.shields.io/github/package-json/dependency-version/e-choness/the-order-of-elf/three?filename=web%2Fpackage.json&style=flat-square&logo=threedotjs&label=three.js&color=000000">
+  <img alt="three.js" src="https://img.shields.io/github/package-json/dependency-version/e-choness/the-order-of-elf/three?filename=package.json&style=flat-square&logo=threedotjs&label=three.js&color=000000">
+  <img alt="Node 24" src="https://img.shields.io/badge/Node-24%20LTS-5FA04E?style=flat-square&logo=nodedotjs&logoColor=white">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white">
   <img alt="Vite" src="https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white">
   <img alt="WebGL 2" src="https://img.shields.io/badge/WebGL-2-990000?style=flat-square&logo=webgl&logoColor=white">
   <img alt="Web Audio" src="https://img.shields.io/badge/Web%20Audio-live%20carols-ff8fa3?style=flat-square">
   <img alt="Kenney CC0" src="https://img.shields.io/badge/art-Kenney%20CC0-4fbf8a?style=flat-square">
-  <img alt="Unity" src="https://img.shields.io/badge/original-Unity%202021.3-222222?style=flat-square&logo=unity">
 </p>
 
 <!-- countdown:start -->
@@ -50,7 +52,7 @@
 | --- | --- |
 | **Web remake** (recommended) | **[echoness.itch.io/the-order-of-elf-remake](https://echoness.itch.io/the-order-of-elf-remake)** — free, runs in your browser |
 | **Original jam game** (Unity) | [solarlunareclipse.itch.io/order-of-elf](https://solarlunareclipse.itch.io/order-of-elf) |
-| **Run locally** | `cd web && npm install && npm run dev` → <http://localhost:5173> |
+| **Run locally** | `npm install && npm run dev` → <http://localhost:5173> |
 
 Desktop browser with keyboard & mouse. Best with headphones 🎧.
 
@@ -102,6 +104,13 @@ More in the **[media kit](media-kit/)** — logos, key art, banners, icons, GIFs
 | 1 | **The Johnson House** | Carla, 9 | The original jam level, expanded — a cat who gossips |
 | 2 | **Frostbrook Cabin** | Theo, 11 | The kid is awake, Grandpa has a torch, the dog smells magic |
 | 3 | **Whitmore Manor** | Ollie, 7 | Teen on her phone, dozing aunt, motion-sensor lights, robot vacuum |
+
+## 🚀 Releases & deployment
+
+Every push to `main` is built and shipped to **[itch.io](https://echoness.itch.io/the-order-of-elf-remake)** by GitHub Actions
+using [butler](https://itch.io/docs/butler/); tagging `v*` also publishes a
+[GitHub Release](https://github.com/e-choness/the-order-of-elf/releases) with a ready-to-host zip.
+Setup and details: [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md#deploying).
 
 ## ⌨️ Controls
 
@@ -174,10 +183,14 @@ flowchart LR
 | Tooling | Vite 8, TypeScript (strict), level validator at `/#validate`, GitHub Pages workflow |
 
 ```
-web/            ← the browser remake (see web/README.md)
+src/            ← game code: core · world · game · ui · levels · dev
+public/assets/  ← Kenney CC0 models, textures, audio (+ licence files)
 media-kit/      ← press kit: screenshots, logos, art, GIFs, fact sheet, store copy
-Assets/ …       ← the original Unity 2021.3 project
+docs/           ← development guide
+.github/        ← CI, itch.io deploy, Pages deploy, Christmas countdown
 ```
+
+Developer guide: **[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)**.
 
 </details>
 
@@ -189,20 +202,13 @@ The Order of E.L.F. started as a stealth adventure made by **ABK Jam Team 7** in
 use magic and cunning to gather intel on a child during Christmas Eve — your findings decide whether
 their list goes to Santa or Krampus.
 
-[![The Order of E.L.F (original)](README-img/elf.gif)](https://solarlunareclipse.itch.io/order-of-elf)
+[![The Order of E.L.F (original)](media-kit/original/elf.gif)](https://solarlunareclipse.itch.io/order-of-elf)
 
 <details>
-<summary>Original project details, controls and win criteria</summary>
+<summary>Original game rules, controls and win criteria</summary>
 
-#### Game engine
-- **Unity Version**: 2021.3.26f1 — [download](https://unity.com/releases/editor/whats-new/2021.3.26)
-- **Gold Player** for movement — [GitHub](https://github.com/Hertzole/gold-player)
-
-#### Project structure
-- **Assets/** — scripts, scenes, materials and input configurations
-- **Packages/** — Unity package dependencies
-- **ProjectSettings/** — Unity project settings
-- **README-img/** — images used in this README
+The Unity 2021.3 project (built with [Gold Player](https://github.com/Hertzole/gold-player)) has been retired from this
+repository — browse it any time at the [last Unity commit (`ed82f37`)](https://github.com/e-choness/the-order-of-elf/tree/ed82f37).
 
 #### Core gameplay
 - **Objective**: Gather all Christmas clues located throughout the house before time runs out.
@@ -216,13 +222,13 @@ their list goes to Santa or Krampus.
 - **ELF Demotion (loss)**: both gift and list are incorrect.
 
 #### Controls
-![Control Schemes](README-img/control-scheme.png)
+![Control Schemes](media-kit/original/control-scheme.png)
 
 `WASD` move · `Mouse` camera · `Q` crouch · `Space` jump · `Shift` sprint · `Left click` Christmas Cheer ·
 `E` dialogue / pick up clues · `1` `2` magic abilities · `Tab` pause / review clues · `3` final report
 
 #### Magic abilities
-![Magics](README-img/magic.png)
+![Magics](media-kit/original/magic.png)
 
 - **Second Sight** — see through nearby toys. **Morph** — become a toy to hide. **Shimmer** — brief invisibility.
 
@@ -258,6 +264,6 @@ public-domain carol melodies · fonts under the SIL Open Font License.
 ## 📜 License
 
 Code is licensed under the MIT License — see [LICENSE](LICENSE). Kenney assets are CC0; licence files ship in
-[`web/public/assets/licenses`](web/public/assets/licenses).
+[`public/assets/licenses`](public/assets/licenses).
 
 <p align="center"><sub>Made with 🎄, ❄️ and a suspicious amount of gingerbread.</sub></p>

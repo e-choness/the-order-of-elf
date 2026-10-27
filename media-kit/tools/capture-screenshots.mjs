@@ -1,4 +1,4 @@
-// Usage: start the game with `npm run dev` in web/, then: node capture-screenshots.mjs [title,living,spotted,cabin,manor,ui]
+// Usage: start the game with `npm run dev` at the repo root, then: node capture-screenshots.mjs [title,living,spotted,cabin,manor,ui]
 // Needs Playwright (npm i -D playwright). Renders with SwiftShader if no GPU, so it is slow but deterministic.
 import { chromium } from 'playwright';
 import { fileURLToPath } from 'node:url';

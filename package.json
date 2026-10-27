@@ -1,0 +1,38 @@
+{
+  "name": "the-order-of-elf",
+  "private": true,
+  "version": "2.0.0",
+  "description": "The Order of E.L.F. — a cosy Christmas stealth immersive sim for the browser",
+  "homepage": "https://echoness.itch.io/the-order-of-elf-remake",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/e-choness/the-order-of-elf.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "deploy:itch": "npm run build && butler push dist echoness/the-order-of-elf-remake:html5"
+  },
+  "dependencies": {
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/nunito": "^5.3.0",
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/mountains-of-christmas": "^5.3.0",
+    "@fontsource/special-elite": "^5.3.0",
+    "n8ao": "^2.0.1",
+    "postprocessing": "^6.39.5",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.186.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
+  }
+}
