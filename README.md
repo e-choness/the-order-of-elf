@@ -34,7 +34,7 @@
 </p>
 
 <!-- countdown:start -->
-<p align="center"><img alt="Countdown to Christmas" src="https://img.shields.io/badge/%F0%9F%8E%84%20Christmas%20Eve%20in-58%20days-C0283B?style=for-the-badge"></p>
+<p align="center"><img alt="Countdown to Christmas" src="https://img.shields.io/badge/%F0%9F%8E%84%20Christmas%20Eve%20in-57%20days-C0283B?style=for-the-badge"></p>
 <!-- countdown:end -->
 
 <p align="center">
